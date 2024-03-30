@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import './App.css'
 import Header from "./components/Header/Header"
 import Main from './components/Main/Main'
@@ -7,10 +6,7 @@ import PopExit from './components/popups/PopExit/PopExit'
 import PopNewCard from './components/popups/PopNewCard/PopNewCard'
 
 function App() {
-  // const [] = useState(0)
-
   return (
-    <>
     <div className="wrapper">
 		<PopExit />
 		<PopNewCard />
@@ -18,7 +14,6 @@ function App() {
     <Header />
 		<Main />
     </div>
-    </>
   )
 }
 
