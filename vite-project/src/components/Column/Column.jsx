@@ -1,13 +1,22 @@
+import { cardList } from "../../data";
 import Card from "../Card/Card";
 
-function Column({ name }) {
+function Column({ status }) {
   return (
     <div className="main__column">
       <div className="column__title">
-        <p>{name}</p>
+        <p>{status}</p>
       </div>
       <div className="cards">
-        <Card
+        {cardList.map((card) => {
+          <Card 
+          topic={card.topic}
+          title={card.title}
+          date={card.date}
+          key={card.id}
+          />
+        })}
+        {/* <Card
           topic={"Web Design"}
           title={"Название задачи"}
           date={"30.10.23"}
@@ -21,7 +30,7 @@ function Column({ name }) {
           topic={"Copywriting"}
           title={"Название задачи"}
           date={"30.10.23"}
-        />
+        /> */}
       </div>
     </div>
   );
