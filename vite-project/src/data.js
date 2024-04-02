@@ -53,14 +53,14 @@ export const cardList = [
         topic: 'Copywriting',
         title: 'Название задачи',
         date: '30.10.23',
-        status: 'Без статуса'
+        status: 'В работе'
     },
     {
         id: 9,
         topic: 'Web Design',
         title: 'Название задачи',
         date: '30.10.23',
-        status: 'Без статуса'
+        status: 'В работе'
     },
     {
         id: 10,
@@ -77,3 +77,11 @@ export const cardList = [
         status: 'Готово'
     },
 ]
+
+export const statusList = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
