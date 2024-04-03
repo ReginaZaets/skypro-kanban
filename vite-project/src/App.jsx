@@ -9,6 +9,7 @@ import { cardList } from "./data";
 
 function App() {
   const [cards, setCards] = useState(cardList);
+  
   return (
     <div className="wrapper">
       <PopExit />
