@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as S from "./Header.styled";
 
 export default function Header({ cards, setCards }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,15 +9,15 @@ export default function Header({ cards, setCards }) {
   function onClick() {
     const newCard = {
       id: cards.length + 1,
-      topic: 'Web Design',
-      title: 'Новая задача',
-      date: '30.10.23',
+      topic: "Web Design",
+      title: "Новая задача",
+      date: "30.10.23",
       status: "Без статуса",
     };
     setCards([...cards, newCard]);
   }
   return (
-    <header className="header">
+    <S.Header>
       <div className="container">
         <div className="header__block">
           <div className="header__logo _show _light">
@@ -29,7 +30,7 @@ export default function Header({ cards, setCards }) {
               <img src="image/logo_dark.png" alt="logo" />
             </a>
           </div>
-          <nav className="header__nav">
+          <S.Nav>
             <button
               onClick={onClick}
               className="header__btn-main-new _hover01"
@@ -37,13 +38,9 @@ export default function Header({ cards, setCards }) {
             >
               Создать новую задачу
             </button>
-            <a
-              onClick={toggleDropdown}
-              href="#user-set-target"
-              className="header__user _hover02"
-            >
+            <S.User onClick={toggleDropdown} >
               Ivan Ivanov
-            </a>
+            </S.User>
             {isOpen && (
               <div
                 className="header__pop-user-set pop-user-set"
@@ -60,9 +57,9 @@ export default function Header({ cards, setCards }) {
                 </button>
               </div>
             )}
-          </nav>
+          </S.Nav>
         </div>
       </div>
-    </header>
+    </S.Header>
   );
 }
