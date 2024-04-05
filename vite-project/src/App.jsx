@@ -6,18 +6,20 @@ import PopExit from "./components/popups/PopExit/PopExit";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
 import { useState } from "react";
 import { cardList } from "./data";
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 function App() {
   const [cards, setCards] = useState(cardList);
-  
+
   return (
-    <div className="wrapper">
-      <PopExit />
-      <PopNewCard />
-      <PopBrowse />
-      <Header setCards={setCards} cards={cards} />
-      <Main cards={cards} />
-    </div>
+    <>
+    <GlobalStyle />
+    <PopExit />
+    <PopNewCard />
+    <PopBrowse />
+    <Header setCards={setCards} cards={cards} />
+    <Main cards={cards} />
+  </>
   );
 }
 

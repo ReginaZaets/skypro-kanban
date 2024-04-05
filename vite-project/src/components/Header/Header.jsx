@@ -1,11 +1,8 @@
-import { useState } from "react";
+import HeaderPop from "./HeaderPop";
 import * as S from "./Header.styled";
 
-export default function Header({ cards, setCards }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen((prevState) => !prevState);
-  };
+export default function Header({ cards, setCards, toggleDropdown }) {
+  
   function onClick() {
     const newCard = {
       id: cards.length + 1,
@@ -19,46 +16,24 @@ export default function Header({ cards, setCards }) {
   return (
     <S.Header>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+        <S.HeaderBlock>
+          <S.Logo>
             <a href="" target="_self">
               <img src="image/logo.png" alt="logo" />
             </a>
-          </div>
-          <div className="header__logo _dark">
+          </S.Logo>
+          {/* <S.HeaderLogo>
             <a href="" target="_self">
               <img src="image/logo_dark.png" alt="logo" />
             </a>
-          </div>
+          </S.HeaderLogo> */}
           <S.Nav>
-            <button
-              onClick={onClick}
-              className="header__btn-main-new _hover01"
-              id="btnMainNew"
-            >
+            <S.Button onClick={onClick} id="btnMainNew">
               Создать новую задачу
-            </button>
-            <S.User onClick={toggleDropdown} >
-              Ivan Ivanov
-            </S.User>
-            {isOpen && (
-              <div
-                className="header__pop-user-set pop-user-set"
-                id="user-set-target"
-              >
-                <p className="pop-user-set__name">Ivan Ivanov</p>
-                <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                <div className="pop-user-set__theme">
-                  <p>Темная тема</p>
-                  <input type="checkbox" className="checkbox" name="checkbox" />
-                </div>
-                <button type="button" className="_hover03">
-                  <a href="#popExit">Выйти</a>
-                </button>
-              </div>
-            )}
+            </S.Button>
+            <HeaderPop onClick={toggleDropdown}/>
           </S.Nav>
-        </div>
+        </S.HeaderBlock>
       </div>
     </S.Header>
   );
