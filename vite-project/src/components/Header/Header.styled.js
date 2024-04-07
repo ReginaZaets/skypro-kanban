@@ -76,7 +76,7 @@ export const User = styled.a`
   ${Hover02}
 `;
 
-export const HeaderPop = styled.div`
+export const HeaderPopSet = styled.div`
   position: absolute;
   top: 61px;
   right: 0;

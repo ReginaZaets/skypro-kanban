@@ -1,5 +1,6 @@
-import HeaderPop from "./HeaderPop";
+import HeaderPop from "./HeaderPop/HeaderPop.jsx";
 import * as S from "./Header.styled";
+import { Container } from "../../styles/shared.js";
 
 export default function Header({ cards, setCards, toggleDropdown }) {
   
@@ -15,18 +16,18 @@ export default function Header({ cards, setCards, toggleDropdown }) {
   }
   return (
     <S.Header>
-      <div className="container">
+      <Container>
         <S.HeaderBlock>
           <S.Logo>
             <a href="" target="_self">
               <img src="image/logo.png" alt="logo" />
             </a>
           </S.Logo>
-          {/* <S.HeaderLogo>
+          <S.Logo>
             <a href="" target="_self">
               <img src="image/logo_dark.png" alt="logo" />
             </a>
-          </S.HeaderLogo> */}
+          </S.Logo>
           <S.Nav>
             <S.Button onClick={onClick} id="btnMainNew">
               Создать новую задачу
@@ -34,7 +35,7 @@ export default function Header({ cards, setCards, toggleDropdown }) {
             <HeaderPop onClick={toggleDropdown}/>
           </S.Nav>
         </S.HeaderBlock>
-      </div>
+      </Container>
     </S.Header>
   );
 }
