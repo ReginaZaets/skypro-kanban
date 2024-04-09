@@ -76,6 +76,13 @@ export const cardList = [
         date: '30.10.23',
         status: 'Готово'
     },
+    // {
+    //     id: 12,
+    //     topic: 'Other',
+    //     title: 'Название задачи',
+    //     date: '30.10.23',
+    //     status: 'Готово'
+    // },
 ]
 
 export const statusList = [

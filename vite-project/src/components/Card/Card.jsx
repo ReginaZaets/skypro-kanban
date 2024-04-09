@@ -1,13 +1,15 @@
+import { CardItem, CardsCard, CardGroup, CardTheme } from "./CardStyle";
+
 
 
 function Card({topic, title, date }) {
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <div className="card__theme _orange">
-            <p className="_orange">{topic}</p>
-          </div>
+    <CardItem>
+      <CardsCard>
+        <CardGroup>
+          <CardTheme $topic={topic}>
+            <p>{topic}</p>
+          </CardTheme>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">
               <div></div>
@@ -15,7 +17,7 @@ function Card({topic, title, date }) {
               <div></div>
             </div>
           </a>
-        </div>
+        </CardGroup>
         <div className="card__content">
           <a href="" target="_blank">
             <h3 className="card__title">{title}</h3>
@@ -52,8 +54,8 @@ function Card({topic, title, date }) {
             <p>{date}</p>
           </div>
         </div>
-      </div>
-    </div>
+      </CardsCard>
+    </CardItem>
   );
 }
 export default Card;

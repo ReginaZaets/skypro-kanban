@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { statusList } from "../../data";
+import { statusList } from "../../lib/data";
 import Column from "../Column/Column";
 import * as S from "./MainStyled";
 import { Container } from "../../styles/shared";

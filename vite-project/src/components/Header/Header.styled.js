@@ -20,7 +20,7 @@ export const HeaderBlock = styled.div`
 `;
 
 export const Logo = styled.div`
-  img {
+  & img {
     width: 85px;
   }
 `;
@@ -44,7 +44,7 @@ export const Button = styled.button`
   line-height: 1;
   font-weight: 500;
   margin-right: 20px;
-  a {
+  & a {
     color: #ffffff;
     ${Hover01}
   }

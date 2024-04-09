@@ -5,7 +5,7 @@ import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
 import PopExit from "./components/popups/PopExit/PopExit";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
 import { useState } from "react";
-import { cardList } from "./data";
+import { cardList } from "./lib/data";
 import { GlobalStyle } from "./styles/GlobalStyle";
 
 function App() {
