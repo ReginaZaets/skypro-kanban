@@ -1,6 +1,7 @@
 import HeaderPop from "./HeaderPop/HeaderPop.jsx";
 import * as S from "./Header.styled";
 import { Container } from "../../styles/shared.js";
+import { Link } from 'react-router-dom';
 
 export default function Header({ cards, setCards, toggleDropdown }) {
   
@@ -19,15 +20,15 @@ export default function Header({ cards, setCards, toggleDropdown }) {
       <Container>
         <S.HeaderBlock>
           <S.Logo>
-            <a href="" target="_self">
+            <Link to="" target="_self">
               <img src="image/logo.png" alt="logo" />
-            </a>
+            </Link>
           </S.Logo>
-          <S.Logo>
-            <a href="" target="_self">
+          {/* <S.Logo>
+            <Link to="" target="_self">
               <img src="image/logo_dark.png" alt="logo" />
-            </a>
-          </S.Logo>
+            </Link>
+          </S.Logo> */}
           <S.Nav>
             <S.Button onClick={onClick} id="btnMainNew">
               Создать новую задачу

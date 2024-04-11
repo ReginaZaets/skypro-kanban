@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as S from "../Header.styled";
 import { ButtonUsetPop, HeaderPopSet, PopUserMail, PopUserName, PopUserTheme } from "./HeaderPopStyled.js";
+import { Link } from "react-router-dom";
 
 export default function HeaderPop () {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function HeaderPop () {
                   <input type="checkbox" name="checkbox" />
                 </PopUserTheme>
                 <ButtonUsetPop>
-                  <a href="#popExit">Выйти</a>
+                  <Link to="/exit">Выйти</Link>
                 </ButtonUsetPop>
               </HeaderPopSet>
         )}

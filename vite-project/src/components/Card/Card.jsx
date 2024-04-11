@@ -1,8 +1,16 @@
-import { CardItem, CardsCard, CardGroup, CardTheme } from "./CardStyle";
+import { Link } from "react-router-dom";
+import {
+  CardItem,
+  CardsCard,
+  CardGroup,
+  CardTheme,
+  CardContent,
+  CardTitle,
+  CardDate,
+  CardBtn,
+} from "./CardStyle";
 
-
-
-function Card({topic, title, date }) {
+function Card({ topic, title, date, id }) {
   return (
     <CardItem>
       <CardsCard>
@@ -10,19 +18,17 @@ function Card({topic, title, date }) {
           <CardTheme $topic={topic}>
             <p>{topic}</p>
           </CardTheme>
-          <a href="#popBrowse" target="_self">
-            <div className="card__btn">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </a>
+          <Link to={`/card/${id}`}>
+          <CardBtn>
+            <div></div>
+            <div></div>
+            <div></div>
+          </CardBtn>
+          </Link>
         </CardGroup>
-        <div className="card__content">
-          <a href="" target="_blank">
-            <h3 className="card__title">{title}</h3>
-          </a>
-          <div className="card__date">
+        <CardContent>
+          <CardTitle>{title}</CardTitle>
+          <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -52,8 +58,8 @@ function Card({topic, title, date }) {
               </defs>
             </svg>
             <p>{date}</p>
-          </div>
-        </div>
+          </CardDate>
+        </CardContent>
       </CardsCard>
     </CardItem>
   );

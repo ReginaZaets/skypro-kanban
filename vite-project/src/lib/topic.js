@@ -20,15 +20,3 @@ export const TopicStyles = {
     color: "#FFFFFF",
   },
 };
-
-// export const ColorTheme = {
-//   "Web Design": {
-//     backgroundColor: "_orange"
-//   },
-//   "Research": {
-//     backgroundColor: "_green"
-//   },
-//   "Copywriting": {
-//     backgroundColor: "_purple"
-//   },
-// }
