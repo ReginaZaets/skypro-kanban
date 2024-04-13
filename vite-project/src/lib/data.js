@@ -96,8 +96,8 @@ export const statusList = [
 export const paths = {
     MAIN: "/",
     EXIT: "/exit",
-    LOGIN: "/Login",
-    REGISTER: "/Register",
+    LOGIN: "/login",
+    REGISTER: "/register",
     CARD: "/card/:id",
     NOT_FOUND: "*",
   };

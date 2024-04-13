@@ -11,10 +11,7 @@ function Column({ status, cardList }) {
         {cardList.map((card) => {
           return (
             <Card
-              topic={card.topic}
-              title={card.title}
-              date={card.date}
-              key={card.id}
+              key={card.id}{...card}
             />
           );
         })}

@@ -18,7 +18,7 @@ function Card({ topic, title, date, id }) {
           <CardTheme $topic={topic}>
             <p>{topic}</p>
           </CardTheme>
-          <Link to={`/card/${id}`}>
+          <Link to={`card/${id}`}>
           <CardBtn>
             <div></div>
             <div></div>
