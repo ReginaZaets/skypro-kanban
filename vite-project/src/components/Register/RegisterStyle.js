@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import { Hover01 } from "../../styles/shared";
-export const ContainerSignin = styled.div`
+import styled, { css } from "styled-components";
+export const ContainerSignup = styled.div`
   display: block;
   width: 100vw;
   min-height: 100vh;
@@ -29,7 +28,6 @@ export const ModalBlock = styled.div`
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 `;
-
 export const ModalTtl = styled.div`
   & h2 {
     text-align: center;
@@ -40,14 +38,13 @@ export const ModalTtl = styled.div`
     margin-bottom: 20px;
   }
 `;
-
 export const ModalFormLogin = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  & input:first-child {
+  & input:not(:last-child) {
     margin-bottom: 7px;
   }
 `;
@@ -79,6 +76,12 @@ export const ModalInput = styled.input`
   }
 `;
 
+export const HoverSign01 = css`
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
 export const ModalBtnEnter = styled.button`
   width: 100%;
   height: 30px;
@@ -96,7 +99,6 @@ export const ModalBtnEnter = styled.button`
   font-weight: 500;
   letter-spacing: -0.14px;
   color: #ffffff;
-
   & a {
     width: 100%;
     height: 100%;
@@ -105,8 +107,7 @@ export const ModalBtnEnter = styled.button`
     align-items: center;
     justify-content: center;
   }
-
-  ${Hover01}
+  ${HoverSign01}
 `;
 
 export const ModalFormGroup = styled.div`
@@ -119,7 +120,6 @@ export const ModalFormGroup = styled.div`
     line-height: 150%;
     letter-spacing: -0.14px;
   }
-
   & a {
     text-decoration: underline;
   }
