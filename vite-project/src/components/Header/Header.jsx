@@ -3,7 +3,7 @@ import * as S from "./Header.styled";
 import { Container } from "../../styles/shared.js";
 import { Link } from 'react-router-dom';
 
-export default function Header({ cards, setCards, toggleDropdown }) {
+export default function Header({ cards, setCards, toggleDropdown, user }) {
   
   function onClick() {
     const newCard = {
@@ -33,7 +33,7 @@ export default function Header({ cards, setCards, toggleDropdown }) {
             <S.Button onClick={onClick} id="btnMainNew">
               Создать новую задачу
             </S.Button>
-            <HeaderPop onClick={toggleDropdown}/>
+            <HeaderPop onClick={toggleDropdown} user={user}/>
           </S.Nav>
         </S.HeaderBlock>
       </Container>

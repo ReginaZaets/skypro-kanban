@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
 import { statusList } from "../../lib/data";
 import Column from "../Column/Column";
 import * as S from "./MainStyled";
 import { Container } from "../../styles/shared";
 
-
-function Main({cards}) {
-  const [isLoading, setIsLoading] = useState(false)
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(true);
-    }, 2000); // 2 секунды задержки
-  }, []);
+function Main({ cards, isLoading, error }) {
   return (
     <S.Main>
-    <Container>
+      <Container>
         <S.MainBlock>
-        {isLoading ? (
-          <S.MailContent>
-            {statusList.map((status, index) => {
-              return <Column 
-              key={index}
-              status={status}
-              cardList={cards.filter((card) => card.status === status)}
-              />
-            })}
-          </S.MailContent>): "Загрузка..."}
+          {isLoading ? (
+            <S.MailContent>
+              {statusList.map((status, index) => {
+                return (
+                  <Column
+                    key={index}
+                    status={status}
+                    cardList={cards.filter((card) => card.status === status)}
+                  />
+                );
+              })}
+            </S.MailContent>
+          ) : (
+            "Загрузка..."
+          )}
+          {error && <p style={{ color: "red" }}>Ошибка, попробуйте позже</p>}
         </S.MainBlock>
       </Container>
     </S.Main>

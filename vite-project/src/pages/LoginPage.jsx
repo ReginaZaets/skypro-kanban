@@ -1,8 +1,8 @@
 import Login from "../components/Login/Login"
 
-const LoginPage = ({Authorization}) => {
+const LoginPage = ({userLogin}) => {
   return (
-    <Login Authorization={Authorization}/>
+    <Login userLogin={userLogin}/>
   )
 }
 
