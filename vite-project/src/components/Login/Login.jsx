@@ -18,42 +18,30 @@ import { useState } from "react";
 import { loginUser } from "../../Api";
 
 const Login = ({ userLogin }) => {
- 
+  const [error, setError] = useState(null);
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  // useEffect(() => {
-  //   const loginErr = async () => {
-  //     const userData = await loginUser( {login, password})
-  //     setError(userData);
-  // };
-  // loginErr();
-  // }, [])
 
   const handleLoginClick = async (e) => {
     e.preventDefault();
-    // try {
-    //   let log = await loginUser({login, password});
-    //   userLogin(log.user)
-    // } catch(err) {
-    //   console.log(err.message)
-    //   setError(err.message)
-    // }
 
     await loginUser({ login, password })
       .then((response) => {
         userLogin(response.user);
       })
       .catch((err) => {
-        console.log(err.message)
-        if (err.message === "Неверный логин или пароль") {
-          alert("Неверный логин или пароль");
-        }
-        if (err.message === "Failed to fetch") {
-          alert("Ошибка сервера");
-        }
-        if (window.navigator.onLine === false) {
-          alert('Проблемы с интернетом, проверьте подключение')}
+        console.log(err.message);
+        setError(err.message)
+        // if (err.message === "Неверный логин или пароль") {
+        //   alert("Неверный логин или пароль");
+        // }
+        // if (err.message === "Failed to fetch") {
+        //   alert("Ошибка сервера");
+        // }
+        // if (window.navigator.onLine === false) {
+        //   alert("Проблемы с интернетом, проверьте подключение");
+        // }
       });
   };
   return (
@@ -82,7 +70,9 @@ const Login = ({ userLogin }) => {
                 placeholder="Пароль"
               />
 
-             
+              {error && (
+                <p style={{ color: "red" }}>{error}</p>
+              )}
 
               <ModalBtnEnter
                 id="btnEnter"

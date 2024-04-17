@@ -16,6 +16,8 @@ import { registerUser } from "../../Api";
 import { sanitizeHtml } from "../../lib/sanitizeHtml";
 
 const Register = ({ userReg }) => {
+  const [error, setError] = useState(null);
+
   
 
   const [name, setName] = useState("");
@@ -29,15 +31,17 @@ const Register = ({ userReg }) => {
       })
       .catch((err) => {
         console.log(err.message)
-        if (err.message === "Такой пользователь уже существует") {
-          alert("Такой пользователь уже существует");
-        }
-        if (err.message === "Failed to fetch") {
-          alert("Ошибка сервера");
-        }
-        if (window.navigator.onLine === false) {
-          alert('Проблемы с интернетом, проверьте подключение')
-        }
+        setError(err.message)
+
+        // if (err.message === "Такой пользователь уже существует") {
+        //   alert("Такой пользователь уже существует");
+        // }
+        // if (err.message === "Failed to fetch") {
+        //   alert("Ошибка сервера");
+        // }
+        // if (window.navigator.onLine === false) {
+        //   alert('Проблемы с интернетом, проверьте подключение')
+        // }
       });
   };
   const handleSubmit = (e) => {
@@ -80,6 +84,9 @@ const Register = ({ userReg }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Пароль"
               />
+              {error && (
+                <p style={{ color: "red" }}>{error}</p>
+              )}
               <ModalBtnEnter id="SignUpEnter">
                 <Link onClick={handleInputChange}>Зарегистрироваться</Link>
               </ModalBtnEnter>
