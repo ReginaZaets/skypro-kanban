@@ -22,6 +22,8 @@ export async function registerUser({ name, login, password }) {
   });
   if (response.status === 400) {
     throw new Error("Такой пользователь уже существует");
+  } else if (response.status === 500) {
+    throw new Error("Ошибка сервера");
   }
   const data = await response.json();
   return data;
@@ -35,6 +37,11 @@ export async function loginUser({ login, password}) {
             password,
           }),
     })
+    if (response.status === 400) {
+      throw new Error("Неверный логин или пароль");
+    } else if (response.status === 500) {
+      throw new Error("Ошибка сервера");
+    }
     const data = await response.json();
     return data;
 }

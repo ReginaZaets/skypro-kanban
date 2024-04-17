@@ -13,16 +13,32 @@ import {
 import { paths } from "../../lib/data";
 import { useState } from "react";
 import { registerUser } from "../../Api";
+import { sanitizeHtml } from "../../lib/sanitizeHtml";
 
 const Register = ({ userReg }) => {
+  
+
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const handleInputChange = async () => {
-    await registerUser({ name, login, password }).then((response) => {
-      userReg(response.user);
-    });
+    await registerUser({ name:sanitizeHtml(name), login:sanitizeHtml(login), password:sanitizeHtml(password) })
+      .then((response) => {
+        userReg(response.user);
+      })
+      .catch((err) => {
+        console.log(err.message)
+        if (err.message === "Такой пользователь уже существует") {
+          alert("Такой пользователь уже существует");
+        }
+        if (err.message === "Failed to fetch") {
+          alert("Ошибка сервера");
+        }
+        if (window.navigator.onLine === false) {
+          alert('Проблемы с интернетом, проверьте подключение')
+        }
+      });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,9 +81,7 @@ const Register = ({ userReg }) => {
                 placeholder="Пароль"
               />
               <ModalBtnEnter id="SignUpEnter">
-                <Link onClick={handleInputChange}>
-                  Зарегистрироваться
-                </Link>
+                <Link onClick={handleInputChange}>Зарегистрироваться</Link>
               </ModalBtnEnter>
               <ModalFormGroup>
                 <p>

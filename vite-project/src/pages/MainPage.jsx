@@ -19,7 +19,8 @@ const MainPage = ({user}) => {
     .finally(()=>{
       setIsLoading(true);
     })
-  }, []);
+  }, 
+  []);
   return (
     <>
       <Header setCards={setCards} cards={cards} user={user} />
