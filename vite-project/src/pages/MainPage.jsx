@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import Header from "./../components/Header/Header";
 import { Outlet } from "react-router-dom";
 import { getTodos } from "../Api";
+import { useCardContext, useUserContext } from "../contexts/useUser";
 
-const MainPage = ({user}) => {
-  const [cards, setCards] = useState([]);
+const MainPage = () => {
+  const {user} = useUserContext();
+const {setCards} = useCardContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -20,11 +23,11 @@ const MainPage = ({user}) => {
       setIsLoading(true);
     })
   }, 
-  []);
+  [user, setCards]);
   return (
     <>
-      <Header setCards={setCards} cards={cards} user={user} />
-      <Main error={error} cards={cards} isLoading={isLoading}/>
+      <Header />
+      <Main error={error} isLoading={isLoading}/>
       <Outlet />
     </>
   );

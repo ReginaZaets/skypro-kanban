@@ -1,7 +1,7 @@
 import Register from "../components/Register/Register";
 
-const RegisterPage = ({ userReg }) => {
-  return <Register userReg={userReg} />;
+const RegisterPage = () => {
+  return <Register />;
 };
 
 export default RegisterPage;

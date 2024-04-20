@@ -20,11 +20,16 @@ export async function registerUser({ name, login, password }) {
       password,
     }),
   });
-  if (response.status === 400) {
-    throw new Error("Такой пользователь уже существует");
-  } else if (response.status === 500) {
-    throw new Error("Ошибка сервера");
+  // парсим ошибку с сервера
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error)
   }
+  // if (response.status === 400) {
+  //   throw new Error("Такой пользователь уже существует");
+  // } else if (response.status === 500) {
+  //   throw new Error("Ошибка сервера");
+  // }
   const data = await response.json();
   return data;
 }
@@ -44,4 +49,24 @@ export async function loginUser({ login, password}) {
     }
     const data = await response.json();
     return data;
+}
+
+export async function postTodos({title, topic, description, date, token}) {
+  const response = await fetch("https://wedev-api.sky.pro/api/kanban", {
+    method:"POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title,
+      topic,
+      description,
+      date,
+    })
+  })
+  if(!response.ok) {
+    throw new Error("Ошибка сервера")
+  }
+  const data = await response.json();
+  return data;
 }

@@ -10,7 +10,7 @@ import {
   CardBtn,
 } from "./CardStyle";
 
-function Card({ topic, title, date, id }) {
+function Card({ topic, title, date, _id }) {
   return (
     <CardItem>
       <CardsCard>
@@ -18,7 +18,7 @@ function Card({ topic, title, date, id }) {
           <CardTheme $topic={topic}>
             <p>{topic}</p>
           </CardTheme>
-          <Link to={`card/${id}`}>
+          <Link to={`card/${_id}`}>
           <CardBtn>
             <div></div>
             <div></div>

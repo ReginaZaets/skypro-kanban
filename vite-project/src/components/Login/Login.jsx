@@ -16,8 +16,11 @@ import {
 import { Wrapper } from "../../styles/shared";
 import { useState } from "react";
 import { loginUser } from "../../Api";
+import { useUserContext } from "../../contexts/useUser";
 
-const Login = ({ userLogin }) => {
+const Login = () => {
+  const {userLogin} = useUserContext();
+
   const [error, setError] = useState(null);
 
   const [login, setLogin] = useState("");
@@ -33,15 +36,6 @@ const Login = ({ userLogin }) => {
       .catch((err) => {
         console.log(err.message);
         setError(err.message)
-        // if (err.message === "Неверный логин или пароль") {
-        //   alert("Неверный логин или пароль");
-        // }
-        // if (err.message === "Failed to fetch") {
-        //   alert("Ошибка сервера");
-        // }
-        // if (window.navigator.onLine === false) {
-        //   alert("Проблемы с интернетом, проверьте подключение");
-        // }
       });
   };
   return (

@@ -1,20 +1,10 @@
 import HeaderPop from "./HeaderPop/HeaderPop.jsx";
 import * as S from "./Header.styled";
 import { Container } from "../../styles/shared.js";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { paths } from "../../lib/data.js";
 
-export default function Header({ cards, setCards, toggleDropdown, user }) {
-  
-  function onClick() {
-    const newCard = {
-      id: cards.length + 1,
-      topic: "Web Design",
-      title: "Новая задача",
-      date: "30.10.23",
-      status: "Без статуса",
-    };
-    setCards([...cards, newCard]);
-  }
+export default function Header({ toggleDropdown }) {
   return (
     <S.Header>
       <Container>
@@ -30,10 +20,10 @@ export default function Header({ cards, setCards, toggleDropdown, user }) {
             </Link>
           </S.Logo> */}
           <S.Nav>
-            <S.Button onClick={onClick} id="btnMainNew">
-              Создать новую задачу
+            <S.Button id="btnMainNew">
+              <Link to={paths.NEWCARD}>Создать новую задачу</Link>
             </S.Button>
-            <HeaderPop onClick={toggleDropdown} user={user}/>
+            <HeaderPop onClick={toggleDropdown} />
           </S.Nav>
         </S.HeaderBlock>
       </Container>

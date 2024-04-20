@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom"
 import Calendar from "../../Calendar/Calendar"
 import { useParams } from 'react-router-dom';
+import { useCardContext } from "../../../contexts/useUser";
 
 function PopBrowse () {
 	const {id} = useParams()
+	const {cards} = useCardContext();
+	const currentCard = cards.find((element) => id === element._id)
+	console.log(cards)
+
     return (
         <div className="pop-browse" id="popBrowse">
 				<div className="pop-browse__container">
 					<div className="pop-browse__block">
 						<div className="pop-browse__content">
 							<div className="pop-browse__top-block">
-								<h3 className="pop-browse__ttl">Задача № {id}</h3>
+								<h3 className="pop-browse__ttl">Задача: {currentCard.title}</h3>
 								<div className="categories__theme theme-top _orange _active-category">
 									<p className="_orange">Web Design</p>
 								</div>

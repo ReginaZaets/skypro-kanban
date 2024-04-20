@@ -2,8 +2,11 @@ import { statusList } from "../../lib/data";
 import Column from "../Column/Column";
 import * as S from "./MainStyled";
 import { Container } from "../../styles/shared";
+import { useCardContext } from "../../contexts/useUser";
 
-function Main({ cards, isLoading, error }) {
+function Main({ isLoading, error }) {
+  const {cards} = useCardContext();
+
   return (
     <S.Main>
       <Container>
