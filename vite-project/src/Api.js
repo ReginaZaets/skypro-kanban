@@ -64,8 +64,10 @@ export async function postTodos({title, topic, description, date, token}) {
       date,
     })
   })
-  if(!response.ok) {
-    throw new Error("Ошибка сервера")
+  if (response.status === 400) {
+    throw new Error("Заполните все поля");
+  } else if (response.status === 500) {
+    throw new Error("Ошибка сервера");
   }
   const data = await response.json();
   return data;

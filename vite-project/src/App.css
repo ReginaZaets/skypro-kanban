@@ -302,7 +302,7 @@ body {
   display: block;
   margin: 0 auto;
   background-color: #FFFFFF;
-  max-width: 630px;
+  max-width: 750px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
@@ -333,7 +333,7 @@ body {
 .pop-new-card__wrap {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 30px;
 }
 .pop-new-card__form {
   max-width: 370px;
@@ -601,7 +601,7 @@ body {
 .pop-browse__wrap {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 30px;
 }
 .pop-browse__form {
   max-width: 370px;

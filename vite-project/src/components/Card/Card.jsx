@@ -10,7 +10,9 @@ import {
   CardBtn,
 } from "./CardStyle";
 
+
 function Card({ topic, title, date, _id }) {
+  
   return (
     <CardItem>
       <CardsCard>

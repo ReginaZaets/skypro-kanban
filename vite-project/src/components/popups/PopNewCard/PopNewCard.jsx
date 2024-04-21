@@ -3,10 +3,16 @@ import Calendar from "../../Calendar/Calendar";
 import { useState } from "react";
 import { postTodos } from "../../../Api";
 import { useUserContext, useCardContext } from "../../../contexts/useUser";
-
+import * as S from "../PopNewCard/PopNewcardStyle";
+import { paths } from "../../../lib/data";
+import { PopBrowseCalendar, Subttl } from "../PopBrowse/PopBrowseStyle";
 
 function PopNewCard() {
-const {setCards} = useCardContext();
+  const { setCards } = useCardContext();
+  
+  const [error, setError] = useState(null);
+
+
 
   const [selected, setSelected] = useState();
 
@@ -15,101 +21,128 @@ const {setCards} = useCardContext();
     description: "",
     topic: "",
   });
+
   const { user } = useUserContext();
   const navigate = useNavigate();
-  
+  // Функция на проверку пустых полей ввода
+  function isEmptyFields(arrFields) {
+    return arrFields.some((el) => el === "");
+  }
 
-  const handleSibmit = async (e) => {
+  //функция срабатывает при нажатии добавить
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    const { title, topic, description } = newCard;
+    if (isEmptyFields([title.trim(), topic.trim(), description.trim()])) {
+      setError("Заполни все поля");
+      // showError("Заполни все поля");
+      return;
+    }
+
     const newCardUser = { ...newCard, date: selected };
     postTodos({ ...newCardUser, token: user?.token })
       .then((response) => {
         setCards(response.tasks);
         navigate(-1);
       })
-      .catch((error) => console.log(error.message));
+      .catch((err) =>
+      {console.log(err.message);
+      setError(err.message)}
+      );
   };
+
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода.
+  const handleInputChange = (e) => {
+    const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
+
+    setNewCard({
+      ...newCard,
+      [name]: value,
+    });
+  };
+  // function showError(errorText) {
+  //   return alert(errorText);
+  // }
+
   return (
-    <div className="pop-new-card" id="new-card">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link to="/" className="pop-new-card__close">
-              &#10006;
-            </Link>
-            <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
-                id="formNewCard"
-                action="#"
-              >
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
+    <S.PopNewCard id="new-card">
+      <S.PopNewCardContainer>
+        <S.PopNewCardBlock>
+          <S.PopNewCardContent>
+            <S.PopNewCardTtl>Создание задачи</S.PopNewCardTtl>
+            <Link to={paths.MAIN}>&#10006;</Link>
+            <S.PopNewCardWrap>
+              <S.PopNewCardForm id="formNewCard" action="#">
+                <S.FormNewBlock>
+                  <Subttl htmlFor="formTitle" >
                     Название задачи
-                  </label>
-                  <input
-                    onChange={(e) =>
-                      setNewCard({ ...newCard, title: e.target.value })
-                    }
-                    className="form-new__input"
+                  </Subttl>
+                  <S.FormNewInput
+                    onChange={handleInputChange}
                     type="text"
-                    name="name"
+                    name="title"
+                    value={newCard.title}
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    $isError={error}
                   />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">
+                </S.FormNewBlock>
+
+                <S.FormNewBlock>
+                  <Subttl htmlFor="textArea">
                     Описание задачи
-                  </label>
-                  <textarea
-                    onChange={(e) =>
-                      setNewCard({ ...newCard, description: e.target.value })
-                    }
-                    className="form-new__area"
-                    name="text"
+                  </Subttl>
+                  <S.PopNewCardArea
+                    onChange={handleInputChange}
+                    value={newCard.description}
+                    name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
+                    $isError={error}
+                  ></S.PopNewCardArea>
+                </S.FormNewBlock>
+              </S.PopNewCardForm>
+              <PopBrowseCalendar>
                 <Calendar selected={selected} setSelected={setSelected} />
-              </div>
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <label>
-                  Web Design
+              </PopBrowseCalendar>
+            </S.PopNewCardWrap>
+            <S.Categories>
+              <S.CategoriesP>Категория</S.CategoriesP>
+              <S.CategoriesThemes>
+                <S.PopNewCardLabel>
+                  <S.LabelPW>Web Design</S.LabelPW>
                   <input
                     type="radio"
-                    onChange={(e) =>
-                      setNewCard({ ...newCard, topic: e.target.value })
-                    }
+                    id="radio1"
+                    name="topic"
+                    value="Web Design"
+                    onChange={handleInputChange}
                   />
-                </label>
+                </S.PopNewCardLabel>
 
-                <label>
-                  Research
+                <S.PopNewCardLabel>
+                  <S.LabelC>Research</S.LabelC>
                   <input
                     type="radio"
-                    onChange={(e) =>
-                      setNewCard({ ...newCard, topic: e.target.value })
-                    }
+                    id="radio2"
+                    name="topic"
+                    value="Research"
+                    onChange={handleInputChange}
                   />
-                </label>
-                <label>
-                  Copywriting
+                </S.PopNewCardLabel>
+                <S.PopNewCardLabel>
+                  <S.LabelR>Copywriting</S.LabelR>
+
                   <input
                     type="radio"
-                    onChange={(e) =>
-                      setNewCard({ ...newCard, topic: e.target.value })
-                    }
+                    id="radio3"
+                    name="topic"
+                    value="Copywriting"
+                    onChange={handleInputChange}
                   />
-                </label>
+                </S.PopNewCardLabel>
                 {/* <div className="categories__theme _orange _active-category">
                   <p className="_orange">Web Design</p>
                 </div>
@@ -119,19 +152,18 @@ const {setCards} = useCardContext();
                 <div className="categories__theme _purple">
                   <p className="_purple">Copywriting</p>
                 </div> */}
-              </div>
-            </div>
-            <button
-              className="form-new__create _hover01"
-              onClick={handleSibmit}
-              id="btnCreate"
-            >
+              </S.CategoriesThemes>
+            </S.Categories>
+            {error && (
+                <p style={{ color: "red" }}>{error}</p>
+              )}
+            <S.FormNewCreate onClick={handleFormSubmit} id="btnCreate">
               Создать задачу
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </S.FormNewCreate>
+          </S.PopNewCardContent>
+        </S.PopNewCardBlock>
+      </S.PopNewCardContainer>
+    </S.PopNewCard>
   );
 }
 
