@@ -1,20 +1,35 @@
+import { statusList } from "../../lib/data";
 import Column from "../Column/Column";
+import * as S from "./MainStyled";
+import { Container } from "../../styles/shared";
+import { useCardContext } from "../../contexts/useUser";
 
-function Main() {
+function Main({ isLoading, error }) {
+  const {cards} = useCardContext();
+
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
-            <Column name={"Без статуса"} />
-            <Column name={"Нужно сделать"} />
-            <Column name={"В работе"} />
-            <Column name={"Тестирование"} />
-            <Column name={"Готово"} />
-          </div>
-        </div>
-      </div>
-    </main>
+    <S.Main>
+      <Container>
+        <S.MainBlock>
+          {isLoading ? (
+            <S.MailContent>
+              {statusList.map((status, index) => {
+                return (
+                  <Column
+                    key={index}
+                    status={status}
+                    cardList={cards.filter((card) => card.status === status)}
+                  />
+                );
+              })}
+            </S.MailContent>
+          ) : (
+            "Загрузка..."
+          )}
+          {error && <p style={{ color: "red" }}>Ошибка, попробуйте позже</p>}
+        </S.MainBlock>
+      </Container>
+    </S.Main>
   );
 }
 

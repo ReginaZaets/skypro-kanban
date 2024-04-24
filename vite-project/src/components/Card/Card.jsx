@@ -1,24 +1,36 @@
-function Card({topic, title, date }) {
+import { Link } from "react-router-dom";
+import {
+  CardItem,
+  CardsCard,
+  CardGroup,
+  CardTheme,
+  CardContent,
+  CardTitle,
+  CardDate,
+  CardBtn,
+} from "./CardStyle";
+
+
+function Card({ topic, title, date, _id }) {
+  
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <div className="card__theme _orange">
-            <p className="_orange">{topic}</p>
-          </div>
-          <a href="#popBrowse" target="_self">
-            <div className="card__btn">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </a>
-        </div>
-        <div className="card__content">
-          <a href="" target="_blank">
-            <h3 className="card__title">{title}</h3>
-          </a>
-          <div className="card__date">
+    <CardItem>
+      <CardsCard>
+        <CardGroup>
+          <CardTheme $topic={topic}>
+            <p>{topic}</p>
+          </CardTheme>
+          <Link to={`card/${_id}`}>
+          <CardBtn>
+            <div></div>
+            <div></div>
+            <div></div>
+          </CardBtn>
+          </Link>
+        </CardGroup>
+        <CardContent>
+          <CardTitle>{title}</CardTitle>
+          <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -48,10 +60,10 @@ function Card({topic, title, date }) {
               </defs>
             </svg>
             <p>{date}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </CardDate>
+        </CardContent>
+      </CardsCard>
+    </CardItem>
   );
 }
 export default Card;

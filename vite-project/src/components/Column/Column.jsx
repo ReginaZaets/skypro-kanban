@@ -1,30 +1,24 @@
 import Card from "../Card/Card";
+import { Cards, ColumnTitle, MainColumn } from "./ColumnStyle";
 
-function Column({ name }) {
+function Column({ status, cardList }) {
+
+
   return (
-    <div className="main__column">
-      <div className="column__title">
-        <p>{name}</p>
-      </div>
-      <div className="cards">
-        <Card
-          topic={"Web Design"}
-          title={"Название задачи"}
-          date={"30.10.23"}
-        />
-        <Card 
-		topic={"Research"} 
-		title={"Название задачи"} 
-		date={"30.10.23"} 
-		/>
-        <Card
-          topic={"Copywriting"}
-          title={"Название задачи"}
-          date={"30.10.23"}
-        />
-      </div>
-    </div>
+    <MainColumn>
+      <ColumnTitle>
+        <p>{status}</p>
+      </ColumnTitle>
+      <Cards>
+        {cardList.map((card) => {
+          return (
+            <Card
+              key={card._id}{...card}
+            />
+          );
+        })}
+      </Cards>
+    </MainColumn>
   );
 }
-
 export default Column;

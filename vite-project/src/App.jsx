@@ -1,20 +1,17 @@
-import './App.css'
-import Header from "./components/Header/Header"
-import Main from './components/Main/Main'
-import PopBrowse from './components/popups/PopBrowse/PopBrowse'
-import PopExit from './components/popups/PopExit/PopExit'
-import PopNewCard from './components/popups/PopNewCard/PopNewCard'
+import "./App.css";
+import AppRoutes from "./Routes";
+
+
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 function App() {
+
   return (
-    <div className="wrapper">
-		<PopExit />
-		<PopNewCard />
-		<PopBrowse />
-    <Header />
-		<Main />
-    </div>
-  )
+    <>
+    <GlobalStyle />
+    <AppRoutes/>
+    </>
+  );
 }
 
-export default App
+export default App;
