@@ -9,10 +9,8 @@ import { PopBrowseCalendar, Subttl } from "../PopBrowse/PopBrowseStyle";
 
 function PopNewCard() {
   const { setCards } = useCardContext();
-  
+
   const [error, setError] = useState(null);
-
-
 
   const [selected, setSelected] = useState();
 
@@ -46,14 +44,15 @@ function PopNewCard() {
         setCards(response.tasks);
         navigate(-1);
       })
-      .catch((err) =>
-      {console.log(err.message);
-      setError(err.message)}
-      );
+      .catch((err) => {
+        console.log(err.message);
+        setError(err.message);
+      });
   };
 
   //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода.
   const handleInputChange = (e) => {
+    e.preventDefault();
     const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
 
     setNewCard({
@@ -75,9 +74,7 @@ function PopNewCard() {
             <S.PopNewCardWrap>
               <S.PopNewCardForm id="formNewCard" action="#">
                 <S.FormNewBlock>
-                  <Subttl htmlFor="formTitle" >
-                    Название задачи
-                  </Subttl>
+                  <Subttl htmlFor="formTitle">Название задачи</Subttl>
                   <S.FormNewInput
                     onChange={handleInputChange}
                     type="text"
@@ -91,9 +88,7 @@ function PopNewCard() {
                 </S.FormNewBlock>
 
                 <S.FormNewBlock>
-                  <Subttl htmlFor="textArea">
-                    Описание задачи
-                  </Subttl>
+                  <Subttl htmlFor="textArea">Описание задачи</Subttl>
                   <S.PopNewCardArea
                     onChange={handleInputChange}
                     value={newCard.description}
@@ -112,37 +107,36 @@ function PopNewCard() {
               <S.CategoriesP>Категория</S.CategoriesP>
               <S.CategoriesThemes>
                 <S.PopNewCardLabel>
-                  <S.LabelPW>Web Design</S.LabelPW>
-                  <input
+                  <S.LabelPW
                     type="radio"
                     id="radio1"
                     name="topic"
                     value="Web Design"
                     onChange={handleInputChange}
                   />
+                  <p>Web Design</p>
                 </S.PopNewCardLabel>
 
-                <S.PopNewCardLabel>
-                  <S.LabelC>Research</S.LabelC>
-                  <input
+                <S.PopNewCardLabelC>
+                  <S.LabelC
                     type="radio"
                     id="radio2"
                     name="topic"
                     value="Research"
                     onChange={handleInputChange}
                   />
-                </S.PopNewCardLabel>
-                <S.PopNewCardLabel>
-                  <S.LabelR>Copywriting</S.LabelR>
-
-                  <input
+                  <p>Research</p>
+                </S.PopNewCardLabelC>
+                <S.PopNewCardLabelR>
+                  <S.LabelR
                     type="radio"
                     id="radio3"
                     name="topic"
                     value="Copywriting"
                     onChange={handleInputChange}
                   />
-                </S.PopNewCardLabel>
+                  <p>Copywriting</p>
+                </S.PopNewCardLabelR>
                 {/* <div className="categories__theme _orange _active-category">
                   <p className="_orange">Web Design</p>
                 </div>
@@ -154,9 +148,7 @@ function PopNewCard() {
                 </div> */}
               </S.CategoriesThemes>
             </S.Categories>
-            {error && (
-                <p style={{ color: "red" }}>{error}</p>
-              )}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <S.FormNewCreate onClick={handleFormSubmit} id="btnCreate">
               Создать задачу
             </S.FormNewCreate>

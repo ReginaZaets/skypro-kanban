@@ -102,8 +102,8 @@ export const FormNewInput = styled.input`
     color: #94a6be;
     letter-spacing: -0.14px;
   }
-  border-color: ${({$isError}) => $isError ?  "red" : "rgba(148, 166, 190, 0.4)" }
-
+  border-color: ${({ $isError }) =>
+    $isError ? "red" : "rgba(148, 166, 190, 0.4)"};
 `;
 
 export const PopNewCardArea = styled.textarea`
@@ -133,7 +133,8 @@ export const PopNewCardArea = styled.textarea`
     color: #94a6be;
     letter-spacing: -0.14px;
   }
-  border-color: ${({$isError}) => $isError ?  "red" : "rgba(148, 166, 190, 0.4)" }
+  border-color: ${({ $isError }) =>
+    $isError ? "red" : "rgba(148, 166, 190, 0.4)"};
 `;
 export const Categories = styled.div`
   margin-bottom: 20px;
@@ -161,45 +162,94 @@ export const PopNewCardLabel = styled.label`
   border-radius: 24px;
   margin-right: 7px;
   opacity: 0.4;
-  opacity: 1;
-  display: block;
-  opacity: 1 !important;
-
+  background-color: #FFE4C2;
+  color: #FF6D00;
+  &:hover {
+    opacity: 1 !important;
+  }
   & p {
     font-size: 14px;
     font-weight: 600;
-    line-height: 14px;
+    line-height: 16px;
     white-space: nowrap;
-    
   }
 `;
 
-export const LabelPW = styled.p`
-  background-color: #ffe4c2;
-  color: #ff6d00;
+export const PopNewCardLabelC = styled.label`
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  padding: 8px 20px;
+  border-radius: 24px;
+  margin-right: 7px;
+  opacity: 0.4;
+  background-color: #B4FDD1;
+  color: #06B16E;
+  
+  &:hover {
+    opacity: 1 !important;
+  }
+  & p {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    white-space: nowrap;
+  }
 `;
 
-export const LabelC = styled.p`
-background-color: #B4FDD1;
-  color: #06B16E;
-`
-
-export const LabelR = styled.p`
-background-color: #E9D4FF;
+export const PopNewCardLabelR = styled.label`
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  padding: 8px 20px;
+  border-radius: 24px;
+  margin-right: 7px;
+  opacity: 0.4;
+  background-color: #E9D4FF;
   color: #9A48F1;
-`
+  &:hover {
+    opacity: 1 !important;
+  }
+  & p {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    white-space: nowrap;
+  }
+`;
+
+export const LabelPW = styled.input`
+  display: none;
+  &:checked + label {
+    opacity: 1 !important;
+  }
+`;
+
+export const LabelC = styled.input`
+  display: none;
+  &:checked + label {
+    opacity: 1 !important;
+  }
+`;
+
+export const LabelR = styled.input`
+  display: none;
+  &:checked + label {
+    opacity: 1 !important;
+  }
+`;
 
 export const FormNewCreate = styled.button`
-width: 132px;
+  width: 132px;
   height: 30px;
-  background-color: #565EEF;
+  background-color: #565eef;
   border-radius: 4px;
   border: 0;
   outline: none;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
-  color: #FFFFFF;
+  color: #ffffff;
   float: right;
   ${Hover01}
-`
+`;
