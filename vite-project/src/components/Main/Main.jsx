@@ -5,7 +5,7 @@ import { Container } from "../../styles/shared";
 import { useCardContext } from "../../contexts/useUser";
 
 function Main({ isLoading, error }) {
-  const {cards} = useCardContext();
+  const { cards } = useCardContext();
 
   return (
     <S.Main>
