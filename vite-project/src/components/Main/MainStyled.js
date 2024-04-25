@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Main = styled.main`
   width: 100%;
-  background-color: #eaeef6;
+  background:  ${(props) => props.theme.background};
+
 `;
 
 export const MainBlock = styled.div`

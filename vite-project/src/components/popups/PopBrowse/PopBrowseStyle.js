@@ -29,7 +29,8 @@ export const PopBrowseContainer = styled.div`
 export const PopBrowseBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   max-width: 750px;
   width: 100%;
   padding: 40px 30px 38px;
@@ -53,7 +54,8 @@ export const PopBrowseTopBlock = styled.div`
 `;
 
 export const PopBrowseTtl = styled.h3`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -70,22 +72,30 @@ export const CategotiesTheme = styled.div`
   opacity: 1;
   display: block;
   opacity: 1 !important;
-  background-color: ${({ $topic }) =>
-    TopicStyles[$topic]?.backgroundColor || "#94A6BE"};
+  background-color: ${({ $topic, $theme }) => {
+      const background = TopicStyles[$topic]?.backgroundColor || "#94A6BE";
+      return $theme === "dark" ? TopicStyles[$topic]?.text : background;
+    }};
   & p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${({ $topic }) => TopicStyles[$topic]?.color || "#FFFFFF"};
-  }
+    color: ${({ $topic, $theme }) => {
+      const color = TopicStyles[$topic]?.color || "#FFFFFF";
+
+      return $theme === 'dark' ? '#FFFFFF' : color;
+
+    }
+  }}
 `;
 
 export const PopBrowseStatus = styled.div`
   margin-bottom: 11px;
 `;
 export const PopBrowseStatusP = styled.p`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -129,7 +139,8 @@ export const PopBrowseFormBlock = styled.div`
 `;
 
 export const Subttl = styled.label`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -140,7 +151,7 @@ export const FormBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background:  ${(props) => props.theme.background};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -171,7 +182,8 @@ export const PopBrowseCalendar = styled.div`
 export const PopBrowseCalendarTtl = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;

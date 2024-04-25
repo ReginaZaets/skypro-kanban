@@ -12,7 +12,8 @@ export const CardItem = styled.div`
 export const CardsCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -36,13 +37,19 @@ export const CardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${({ $topic }) =>
-    TopicStyles[$topic]?.backgroundColor || "#94A6BE"};
+  background-color: ${({ $topic, $theme }) => {
+      const background = TopicStyles[$topic]?.backgroundColor || "#94A6BE";
+      return $theme === "dark" ? TopicStyles[$topic]?.text : background;
+    }};
   & p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
-    color: ${({ $topic }) => TopicStyles[$topic]?.color || "#FFFFFF"};
+    color: ${({ $topic, $theme }) => {
+      const color = TopicStyles[$topic]?.color || "#FFFFFF";
+
+      return $theme === "dark" ? "#FFFFFF" : color;
+    }};
   }
 `;
 
@@ -58,7 +65,8 @@ export const CardTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   margin-bottom: 10px;
 `;
 

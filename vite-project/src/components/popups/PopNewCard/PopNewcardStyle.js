@@ -27,7 +27,8 @@ export const PopNewCardContainer = styled.div`
 export const PopNewCardBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   max-width: 750px;
   width: 100%;
   padding: 40px 30px 48px;
@@ -52,7 +53,8 @@ export const PopNewCardContent = styled.div`
 `;
 
 export const PopNewCardTtl = styled.h3`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -88,6 +90,8 @@ export const FormNewInput = styled.input`
   line-height: 1;
   letter-spacing: -0.14px;
   margin: 20px 0;
+    color: ${(props) => props.theme.text};
+
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -119,6 +123,8 @@ export const PopNewCardArea = styled.textarea`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${(props) => props.theme.text};
+
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -142,7 +148,8 @@ export const Categories = styled.div`
 
 export const CategoriesP = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -162,8 +169,8 @@ export const PopNewCardLabel = styled.label`
   border-radius: 24px;
   margin-right: 7px;
   opacity: 0.4;
-  background-color: #FFE4C2;
-  color: #FF6D00;
+  background-color: ${({ $theme }) => $theme === 'dark' ? '#ff6d00' : '#FFE4C2'};
+  color: ${({ $theme }) => $theme === 'dark' ? '#fff' : '#FF6D00'};
   &:hover {
     opacity: 1 !important;
   }
@@ -183,8 +190,9 @@ export const PopNewCardLabelC = styled.label`
   border-radius: 24px;
   margin-right: 7px;
   opacity: 0.4;
-  background-color: #B4FDD1;
-  color: #06B16E;
+  background-color: ${({ $theme }) => $theme === 'dark' ? '#06b16e' : '#B4FDD1'};
+  color: ${({ $theme }) => $theme === 'dark' ? '#fff' : '#06B16E'};
+  
   
   &:hover {
     opacity: 1 !important;
@@ -205,8 +213,9 @@ export const PopNewCardLabelR = styled.label`
   border-radius: 24px;
   margin-right: 7px;
   opacity: 0.4;
-  background-color: #E9D4FF;
-  color: #9A48F1;
+  background-color: ${({ $theme }) => $theme === 'dark' ? '#9a48f1' : '#E9D4FF'};
+  color: ${({ $theme }) => $theme === 'dark' ? '#fff' : '#9A48F1'};
+
   &:hover {
     opacity: 1 !important;
   }
@@ -220,8 +229,10 @@ export const PopNewCardLabelR = styled.label`
 
 export const LabelPW = styled.input`
   display: none;
+  
   &:checked + label {
     opacity: 1 !important;
+    
   }
 `;
 

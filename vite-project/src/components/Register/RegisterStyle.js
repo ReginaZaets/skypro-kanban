@@ -4,6 +4,8 @@ export const ContainerSignup = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
+  background:  ${(props) => props.theme.background};
+
 `;
 
 export const Modal = styled.div`
@@ -20,7 +22,7 @@ export const Modal = styled.div`
 export const ModalBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
@@ -56,6 +58,8 @@ export const ModalInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
 
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;

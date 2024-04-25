@@ -31,7 +31,8 @@ export const PopExitContainer = styled.div`
 export const PopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
@@ -72,7 +73,7 @@ export const PopExitYes = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: ${(props) => props.theme.text};
   margin-right: 10px;
   & a {
     width: 100%;
@@ -99,7 +100,8 @@ export const PopExitNo = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   & a {
     width: 100%;
     height: 100%;

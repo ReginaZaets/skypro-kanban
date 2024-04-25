@@ -4,7 +4,8 @@ import { Hover01, Hover02 } from "../../styles/shared";
 export const Header = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
 `;
 
 export const HeaderBlock = styled.div`

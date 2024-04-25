@@ -27,10 +27,14 @@ import {
   Subttl,
 } from "./PopBrowseStyle";
 import { paths } from "../../../lib/data";
+import { useContext } from "react";
+import { ThemeContext } from "../../../contexts/themeContext";
 
 function PopBrowse() {
   const { id } = useParams();
   const { cards } = useCardContext();
+  const {theme} = useContext(ThemeContext)
+
   const currentCard = cards.find((element) => id === element._id);
 
   return (
@@ -40,28 +44,16 @@ function PopBrowse() {
           <PopBrowseContent>
             <PopBrowseTopBlock>
               <PopBrowseTtl>Задача: {currentCard.title}</PopBrowseTtl>
-              <CategotiesTheme $topic={currentCard.topic}>
+              <CategotiesTheme $theme={theme} $topic={currentCard.topic}>
                 <p>{currentCard.topic}</p>
               </CategotiesTheme>
             </PopBrowseTopBlock>
             <PopBrowseStatus>
               <PopBrowseStatusP>Статус</PopBrowseStatusP>
               <StatusThemes>
-                {/* <div className="status__theme _hide">
-										<p>Без статуса</p>
-									</div> */}
                 <StatusTheme>
                   <p>{currentCard.status}</p>
                 </StatusTheme>
-                {/* <div className="status__theme _hide">
-										<p>В работе</p>
-									</div>
-									<div className="status__theme _hide">
-										<p>Тестирование</p>
-									</div>
-									<div className="status__theme _hide">
-										<p>Готово</p>
-									</div> */}
               </StatusThemes>
             </PopBrowseStatus>
             <PopBrowseWrap>
@@ -81,12 +73,6 @@ function PopBrowse() {
                 <Calendar/>
               </PopBrowseCalendar>
             </PopBrowseWrap>
-            {/* <div className="theme-down__categories theme-down">
-								<p className="categories__p subttl">Категория</p>
-								<div className="categories__theme _orange _active-category">
-									<p className="_orange">Web Design</p>
-								</div>
-							</div> */}
             <PopBrowseBtn>
               <BtnGroup>
                 <BtnBor>

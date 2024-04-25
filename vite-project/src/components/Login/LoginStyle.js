@@ -5,6 +5,8 @@ export const ContainerSignin = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
+  background:  ${(props) => props.theme.background};
+
 `;
 
 export const Modal = styled.div`
@@ -21,7 +23,8 @@ export const Modal = styled.div`
 export const ModalBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
@@ -59,6 +62,9 @@ export const ModalInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
+
 
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;
@@ -76,6 +82,7 @@ export const ModalInput = styled.input`
     line-height: 21px;
     letter-spacing: -0.28px;
     color: #94a6be;
+    
   }
 `;
 
@@ -95,7 +102,8 @@ export const ModalBtnEnter = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: ${(props) => props.theme.text};
+
 
   & a {
     width: 100%;
