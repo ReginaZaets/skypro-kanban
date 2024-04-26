@@ -1,11 +1,9 @@
+import { Colomns } from "../../lib/data";
 import Card from "../Card/Card";
 import { Cards, ColumnTitle, MainColumn } from "./ColumnStyle";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { useCardContext } from "../../contexts/useUser";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
-function Column({ status, cardList }) {
-  const { cards } = useCardContext();
-
+function Column({ status, cardList, index}) {
   // const ForwardedCard = React.forwardRef((props, ref) => (
   //   <Card {...props} forwardedRef={ref} />
   // ));
@@ -15,32 +13,39 @@ function Column({ status, cardList }) {
   //   return <div ref={forwardedRef} {...rest} />;
   // }
   return (
-    <DragDropContext
-      onDragEnd={({ destination, source }) => {
-        if (!destination) return;
-        cards((prevCard) => {
-          const updatedCards = Array.from(prevCard);
-          const [removed] = updatedCards.slice(source.index, 1);
-          updatedCards.slice(destination.index, 0, removed);
-          return updatedCards;
-        });
-      }}
-    >
-      <Droppable droppableId="ROOT" type="group">
+    <MainColumn>
+      <Droppable droppableId={Colomns[index].id} key={Colomns[index].id} index={Colomns.index}>
         {(provided) => (
-          <MainColumn {...provided.droppableProps} ref={provided.innerRef}>
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            {...provided.dragHandleProps}
+          >
             <ColumnTitle>
               <p>{status}</p>
             </ColumnTitle>
+
             <Cards>
               {cardList.map((card, index) => {
-                return <Card index={index} key={card._id} {...card} />;
+                return (
+                  <Draggable draggableId={card._id} key={card._id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Card key={card._id} {...card} />
+                      </div>
+                    )}
+                  </Draggable>
+                );
               })}
             </Cards>
-          </MainColumn>
+          </div>
         )}
       </Droppable>
-    </DragDropContext>
+    </MainColumn>
   );
 }
 export default Column;

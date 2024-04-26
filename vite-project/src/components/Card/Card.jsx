@@ -11,27 +11,24 @@ import {
 } from "./CardStyle";
 import { ThemeContext } from "../../contexts/themeContext";
 import { useContext } from "react";
-import { Draggable } from "react-beautiful-dnd";
 
 
-function Card({ topic, title, date, _id, index }) {
-  const {theme} = useContext(ThemeContext)
-  
+function Card({ topic, title, date, _id }) {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <Draggable draggableId={_id} key={_id} index={index}>
-      {(provided)=> (
-        <CardItem ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+    <CardItem>
       <CardsCard>
         <CardGroup>
           <CardTheme $theme={theme} $topic={topic}>
             <p>{topic}</p>
           </CardTheme>
           <Link to={`card/${_id}`}>
-          <CardBtn>
-            <div></div>
-            <div></div>
-            <div></div>
-          </CardBtn>
+            <CardBtn>
+              <div></div>
+              <div></div>
+              <div></div>
+            </CardBtn>
           </Link>
         </CardGroup>
         <CardContent>
@@ -70,10 +67,6 @@ function Card({ topic, title, date, _id, index }) {
         </CardContent>
       </CardsCard>
     </CardItem>
-      )}
-    
-  </Draggable>
-
   );
 }
 export default Card;
