@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import PrivateRoute from "./components/PtivateRoute/PrivateRoute";
 import NewCardPage from "./pages/NewCardPage";
+import PopBrowsePage from "./pages/PopBrowsePage";
 
 
 
@@ -23,6 +24,7 @@ const AppRoutes = () => {
             <Route path={paths.EXIT} element={<ExitPage />} />
             <Route path={paths.CARD} element={<CardPage />} />
             <Route path={paths.NEWCARD} element={<NewCardPage />} />
+            <Route path={paths.POPBROWSE} element={<PopBrowsePage />}/>
           </Route>
         </Route>
         <Route path={paths.LOGIN} element={<LoginPage />} />

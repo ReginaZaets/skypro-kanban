@@ -6,7 +6,7 @@ import { useCardContext } from "../../contexts/useUser";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function Main({ isLoading, error }) {
-  const { cards } = useCardContext();
+  const { cards, setCards } = useCardContext();
 
   return (
     <S.Main>
@@ -14,14 +14,34 @@ function Main({ isLoading, error }) {
         <S.MainBlock>
           {isLoading ? (
             <DragDropContext
-              onDragEnd={({ destination, source }) => {
+              onDragEnd={({ source, destination, draggableId }) => {
                 if (!destination) return;
-                cards((prevCard) => {
-                  const updatedCards = Array.from(prevCard);
-                  const [removed] = updatedCards.slice(source.index, 1);
-                  updatedCards.slice(destination.index, 0, removed);
-                  return updatedCards;
-                });
+                if (
+                  source.droppableId === destination.droppableId &&
+                  source.index === destination.index
+                ) {
+                  return;
+                }
+                
+                const newCards = Array.from(cards);
+                const [removedCard] = newCards.splice(source.index, 1);
+                newCards.splice(destination.index, 0, removedCard);
+                const newStatus = Colomns.find(
+                  (colomn) => colomn.id === destination.droppableId
+                ).status;
+                const updatedCard = newCards.find(
+                  (card) => card._id === draggableId
+                );
+                updatedCard.status = newStatus;
+
+                setCards(newCards);
+
+                // cards((prevCard) => {
+                //   const updatedCards = Array.from(prevCard);
+                //   const [removed] = updatedCards.slice(source.index, 1);
+                //   updatedCards.slice(destination.index, 0, removed);
+                //   return updatedCards;
+                // });
               }}
             >
               <S.MailContent>
@@ -29,8 +49,11 @@ function Main({ isLoading, error }) {
                   return (
                     <Column
                       key={index}
+                      index={index}
                       status={status.status}
-                      cardList={cards.filter((card) => card.status === status.status)}
+                      cardList={cards.filter(
+                        (card) => card.status === status.status
+                      )}
                     />
                   );
                 })}

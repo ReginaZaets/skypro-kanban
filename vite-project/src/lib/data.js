@@ -95,29 +95,29 @@ export const statusList = [
 
 export const Colomns = [
   {
-    id: 1,
+    id: "1",
     status: "Без статуса",
     index: 0,
   },
   {
-    id: 2,
+    id: "2",
     status: "Нужно сделать",
     index: 1,
   },
   {
-    id: 3,
+    id: "3",
     status: "В работе",
     index: 2,
   },
   {
-    id: 4,
+    id: "4",
     status: "Тестирование",
-    index: 4,
+    index: 3,
   },
   {
-    id: 5,
+    id: "5",
     status: "Готово",
-    index: 5,
+    index: 4,
   }
 ]
 
@@ -129,6 +129,7 @@ export const paths = {
   CARD: "/card/:id",
   NEWCARD: "/new-card",
   NOT_FOUND: "*",
+  POPBROWSE: "/card/:id",
 };
 
 export const formFields = {

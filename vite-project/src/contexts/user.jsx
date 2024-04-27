@@ -36,6 +36,8 @@ export function UserProvider({children}) {
       setUser(null);
       navigate(paths.LOGIN)
     }
+
+    
     return (
         <UserContext.Provider value={{user, userLogin, userReg, Logout}}>
             {children}

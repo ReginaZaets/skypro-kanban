@@ -12,9 +12,11 @@ function Column({ status, cardList, index}) {
   //   const { forwardedRef, ...rest } = props;
   //   return <div ref={forwardedRef} {...rest} />;
   // }
+
+
   return (
     <MainColumn>
-      <Droppable droppableId={Colomns[index].id} key={Colomns[index].id} index={Colomns.index}>
+      <Droppable droppableId={Colomns[index].id} key={Colomns[index].id} index={index}>
         {(provided) => (
           <div
             ref={provided.innerRef}
@@ -30,12 +32,14 @@ function Column({ status, cardList, index}) {
                 return (
                   <Draggable draggableId={card._id} key={card._id} index={index}>
                     {(provided) => (
+                      
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <Card key={card._id} {...card} />
+                        
+                        <Card  index={index} id={card._id} key={card._id} {...card} />
                       </div>
                     )}
                   </Draggable>

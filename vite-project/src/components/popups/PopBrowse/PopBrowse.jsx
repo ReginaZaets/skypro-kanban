@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Calendar from "../../Calendar/Calendar";
 import { useParams } from "react-router-dom";
-import { useCardContext } from "../../../contexts/useUser";
+import { useCardContext, useUserContext } from "../../../contexts/useUser";
 import {
   BtnBg,
   BtnBor,
@@ -29,13 +29,32 @@ import {
 import { paths } from "../../../lib/data";
 import { useContext } from "react";
 import { ThemeContext } from "../../../contexts/themeContext";
+import { deleteTodos } from "../../../Api";
 
 function PopBrowse() {
   const { id } = useParams();
-  const { cards } = useCardContext();
-  const {theme} = useContext(ThemeContext)
+  const { cards, setCards} = useCardContext();
+  const {theme} = useContext(ThemeContext);
+  const {user} = useUserContext();
+  const navigate = useNavigate()
+
 
   const currentCard = cards.find((element) => id === element._id);
+
+  const handleDeleteClick = (e)=> {
+    e.preventDefault();
+     
+     deleteTodos({_id: currentCard._id, token: user.token})
+     .then((response) => {
+      // Обновляем состояние с новыми данными карточек
+      setCards(response.tasks);
+      navigate(paths.MAIN)
+     })
+     .catch((err) => {
+      console.log(err.message)
+     })
+     
+  }
 
   return (
     <PopBrows id="popBrowse">
@@ -75,11 +94,11 @@ function PopBrowse() {
             </PopBrowseWrap>
             <PopBrowseBtn>
               <BtnGroup>
-                <BtnBor>
+                <BtnBor >
                   <Link>Редактировать задачу</Link>
                 </BtnBor>
-                <BtnBor>
-                  <Link>Удалить задачу</Link>
+                <BtnBor onClick={handleDeleteClick}>
+                  Удалить задачу
                 </BtnBor>
               </BtnGroup>
               <BtnBg>
