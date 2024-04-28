@@ -118,8 +118,8 @@ export const Colomns = [
     id: 5,
     status: "Готово",
     index: 4,
-  }
-]
+  },
+];
 
 export const paths = {
   MAIN: "/",
@@ -129,11 +129,10 @@ export const paths = {
   CARD: "/card/:id",
   NEWCARD: "/new-card",
   NOT_FOUND: "*",
-  POPBROWSE: "/card/:id",
 };
 
 export const formFields = {
-    name: "",
-    login: "",
-    password: "",
+  name: "",
+  login: "",
+  password: "",
 };

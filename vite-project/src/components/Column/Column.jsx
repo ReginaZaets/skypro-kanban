@@ -1,8 +1,8 @@
 import { Colomns } from "../../lib/data";
 import Card from "../Card/Card";
 import { Cards, ColumnTitle, MainColumn } from "./ColumnStyle";
-import {  Draggable } from "react-beautiful-dnd";
-import {StrictModeDroppable as Droppable} from "../../lib/helpDroppable"
+import { Draggable } from "react-beautiful-dnd";
+import { StrictModeDroppable as Droppable } from "../../lib/helpDroppable";
 
 function Column({ status, cardList, index }) {
   // const ForwardedCard = React.forwardRef((props, ref) => (
@@ -14,10 +14,8 @@ function Column({ status, cardList, index }) {
   //   return <div ref={forwardedRef} {...rest} />;
   // }
 
-
   return (
     <MainColumn>
-      
       <Droppable
         droppableId={Colomns[index].id.toString()}
         key={Colomns[index].id}
@@ -58,7 +56,6 @@ function Column({ status, cardList, index }) {
                           key={card._id}
                           {...card}
                         />
-                        
                       </div>
                     )}
                   </Draggable>
@@ -69,7 +66,6 @@ function Column({ status, cardList, index }) {
           </div>
         )}
       </Droppable>
-      
     </MainColumn>
   );
 }

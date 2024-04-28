@@ -73,9 +73,9 @@ export const CategotiesTheme = styled.div`
   display: block;
   opacity: 1 !important;
   background-color: ${({ $topic, $theme }) => {
-      const background = TopicStyles[$topic]?.backgroundColor || "#94A6BE";
-      return $theme === "dark" ? TopicStyles[$topic]?.text : background;
-    }};
+    const background = TopicStyles[$topic]?.backgroundColor || "#94A6BE";
+    return $theme === "dark" ? TopicStyles[$topic]?.text : background;
+  }};
   & p {
     font-size: 14px;
     font-weight: 600;
@@ -84,10 +84,9 @@ export const CategotiesTheme = styled.div`
     color: ${({ $topic, $theme }) => {
       const color = TopicStyles[$topic]?.color || "#FFFFFF";
 
-      return $theme === 'dark' ? '#FFFFFF' : color;
-
-    }
-  }}
+      return $theme === "dark" ? "#FFFFFF" : color;
+    }};
+  }
 `;
 
 export const PopBrowseStatus = styled.div`
@@ -119,6 +118,12 @@ export const StatusTheme = styled.div`
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
+    &:hover {
+      color: #fff;
+    }
+  }
+  &:hover {
+    background-color: #94a6be;
   }
 `;
 
@@ -151,7 +156,8 @@ export const FormBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background:  ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -230,4 +236,22 @@ export const BtnBg = styled.button`
     color: #ffffff;
   }
   ${Hover01}
+`;
+
+export const EditInput = styled.input`
+  display: none;
+`;
+
+export const EditLabel = styled.label`
+  color: #94a6be;
+
+  & p {
+    color: #94a6be;
+
+    &:hover {
+      color: #fff;
+
+      background-color: #94a6be;
+    }
+  }
 `;

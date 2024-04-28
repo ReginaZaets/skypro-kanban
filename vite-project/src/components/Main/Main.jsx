@@ -14,7 +14,7 @@ function Main({ isLoading, error }) {
         <S.MainBlock>
           {isLoading ? (
             <DragDropContext
-              onDragEnd={({ source, destination, draggableId }) => {
+              onDragEnd={({ source, destination }) => {
                 if (!destination) return;
                 if (
                   source.droppableId === destination.droppableId &&
@@ -22,26 +22,12 @@ function Main({ isLoading, error }) {
                 ) {
                   return;
                 }
-                
+
                 const newCards = Array.from(cards);
                 const [removedCard] = newCards.splice(source.index, 1);
                 newCards.splice(destination.index, 0, removedCard);
-                const newStatus = Colomns.find(
-                  (colomn) => colomn.id === destination.droppableId
-                ).status;
-                const updatedCard = newCards.find(
-                  (card) => card._id === draggableId
-                );
-                updatedCard.status = newStatus;
 
                 setCards(newCards);
-
-                // cards((prevCard) => {
-                //   const updatedCards = Array.from(prevCard);
-                //   const [removed] = updatedCards.slice(source.index, 1);
-                //   updatedCards.slice(destination.index, 0, removed);
-                //   return updatedCards;
-                // });
               }}
             >
               <S.MailContent>
