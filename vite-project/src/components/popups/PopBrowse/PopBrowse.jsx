@@ -24,13 +24,14 @@ import {
   PopBrowseTtl,
   PopBrowseWrap,
   StatusTheme,
+  StatusThemeLight,
   StatusThemes,
   Subttl,
 } from "./PopBrowseStyle";
 import { paths } from "../../../lib/data";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../contexts/themeContext";
-import { deleteTodos } from "../../../Api";
+import { deleteTodos, editTodos } from "../../../Api";
 
 function PopBrowse() {
   const { id } = useParams();
@@ -41,6 +42,9 @@ function PopBrowse() {
   const currentCard = cards.find((element) => id === element._id);
 
   const [popEdit, setPopEdit] = useState(false);
+  const [selected, setSelected] = useState();
+  // const [saveCard, setSaveCard] = useState({})
+
 
   const [saveCards, setSaveCards] = useState({
     title: currentCard.title,
@@ -50,7 +54,7 @@ function PopBrowse() {
     status: currentCard.status,
   });
 
-  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода.
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода редактирования.
   const handleInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
@@ -60,7 +64,7 @@ function PopBrowse() {
       [name]: value,
     });
   };
-
+//Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода удаления.
   const handleDeleteClick = (e) => {
     e.preventDefault();
 
@@ -79,6 +83,29 @@ function PopBrowse() {
     setPopEdit(true);
   }, []);
 
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода сохранения.
+  const handleSaveClick =  (e) => {
+    e.preventDefault();
+
+    const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
+
+    setSaveCards({
+      ...saveCards,
+      [name]: value,
+    });
+
+    editTodos({ _id: currentCard._id, token: user.token, newSaveCard: saveCards })
+    .then((response) => {
+      // Обновляем состояние с новыми данными карточек
+      setCards(response.tasks);
+      navigate(paths.MAIN);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  };
+
+
   return (
     <PopBrows id="popBrowse">
       <PopBrowseContainer>
@@ -95,9 +122,9 @@ function PopBrowse() {
               <PopBrowseStatusP>Статус</PopBrowseStatusP>
               {popEdit ? (
                 <StatusThemes>
-                  <StatusTheme>
+                  <StatusThemeLight>
                     <p>{currentCard.status}</p>
-                  </StatusTheme>
+                  </StatusThemeLight>
                 </StatusThemes>
               ) : (
                 <StatusThemes>
@@ -176,7 +203,6 @@ function PopBrowse() {
                       disabled
                       onChange={handleInputChange}
                     >
-                      {/* <p>{currentCard.description}</p> */}
                     </FormBrowseArea>
                   ) : (
                     <FormBrowseArea
@@ -185,14 +211,13 @@ function PopBrowse() {
                       id="textArea2"
                       onChange={handleInputChange}
                     >
-                      {/* <p>{currentCard.description}</p> */}
                     </FormBrowseArea>
                   )}
                 </PopBrowseFormBlock>
               </PopBrowseForm>
               <PopBrowseCalendar>
                 <PopBrowseCalendarTtl>Даты</PopBrowseCalendarTtl>
-                {popEdit ? <Calendar /> : <Calendar />}
+                {popEdit ? <Calendar selected={currentCard.date}/> : <Calendar selected={selected} setSelected={setSelected}/>}
               </PopBrowseCalendar>
             </PopBrowseWrap>
             <PopBrowseBtn>
@@ -209,8 +234,8 @@ function PopBrowse() {
                 </BtnGroup>
               ) : (
                 <BtnGroup>
-                  <BtnBor>
-                    <Link>Сохранить</Link>
+                  <BtnBor onClick={handleSaveClick}>
+                    Сохранить
                   </BtnBor>
                   <BtnBor
                     onClick={() => {
