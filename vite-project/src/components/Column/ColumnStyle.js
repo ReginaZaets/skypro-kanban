@@ -26,3 +26,9 @@ export const Cards = styled.div`
   display: block;
   position: relative;
 `;
+
+export const Col = styled.div`
+background-color: red;
+
+  
+`

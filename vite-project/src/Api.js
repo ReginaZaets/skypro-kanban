@@ -89,7 +89,6 @@ export async function deleteTodos ({_id,token}) {
 }
 
 export async function editTodos ({_id,token, newSaveCard}) {
-  console.log(_id)
   const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${_id}`, {
     method: "PUT", 
     headers: {
