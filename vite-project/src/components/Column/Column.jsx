@@ -4,15 +4,16 @@ import { Cards, Col, ColumnTitle, MainColumn } from "./ColumnStyle";
 import { Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "../../lib/helpDroppable";
 
-function Column({ status, cardList, index }) {
+function Column({ status, cardList, index}) {
  
 
   return (
     <MainColumn>
+      
       <Droppable
         droppableId={Colomns[index].id.toString()}
-        key={Colomns[index].id}
-        index={index}
+        // key={Colomns[index].id}
+        // index={index}
       >
         {(provided) => (
           <Col
@@ -27,6 +28,7 @@ function Column({ status, cardList, index }) {
             </ColumnTitle>
 
             <Cards>
+            
               {cardList.map((card, index) => {
                 return (
                   <Draggable
@@ -41,6 +43,7 @@ function Column({ status, cardList, index }) {
                         {...provided.dragHandleProps}
                       >
                         {/* {console.log(provided)} */}
+
 
                         <Card
                           index={index}

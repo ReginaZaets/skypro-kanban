@@ -45,7 +45,6 @@ function PopBrowse() {
   const [selected, setSelected] = useState();
   // const [saveCard, setSaveCard] = useState({})
 
-
   const [saveCards, setSaveCards] = useState({
     title: currentCard.title,
     description: currentCard.description,
@@ -64,7 +63,7 @@ function PopBrowse() {
       [name]: value,
     });
   };
-//Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода удаления.
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода удаления.
   const handleDeleteClick = (e) => {
     e.preventDefault();
 
@@ -84,7 +83,7 @@ function PopBrowse() {
   }, []);
 
   //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода сохранения.
-  const handleSaveClick =  (e) => {
+  const handleSaveClick = (e) => {
     e.preventDefault();
 
     const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
@@ -94,17 +93,20 @@ function PopBrowse() {
       [name]: value,
     });
 
-    editTodos({ _id: currentCard._id, token: user.token, newSaveCard: saveCards })
-    .then((response) => {
-      // Обновляем состояние с новыми данными карточек
-      setCards(response.tasks);
-      navigate(paths.MAIN);
+    editTodos({
+      _id: currentCard._id,
+      token: user.token,
+      newSaveCard: saveCards,
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
+      .then((response) => {
+        // Обновляем состояние с новыми данными карточек
+        setCards(response.tasks);
+        navigate(paths.MAIN);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
-
 
   return (
     <PopBrows id="popBrowse">
@@ -122,71 +124,61 @@ function PopBrowse() {
               <PopBrowseStatusP>Статус</PopBrowseStatusP>
               {popEdit ? (
                 <StatusThemes>
-                  <StatusThemeLight>
+                  <StatusThemeLight $theme={theme}>
                     <p>{currentCard.status}</p>
                   </StatusThemeLight>
                 </StatusThemes>
               ) : (
                 <StatusThemes>
-                  <StatusTheme>
-                    <label>
-                      <EditInput
-                        type="radio"
-                        id="status1"
-                        name="status"
-                        value="Без статуса"
-                        onChange={handleInputChange}
-                      />
-                      <p>Без статуса</p>
-                    </label>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status1"
+                      name="status"
+                      value="Без статуса"
+                      onChange={handleInputChange}
+                    />
+                    <p>Без статуса</p>
                   </StatusTheme>
-                  <StatusTheme>
-                    <label>
-                      <EditInput
-                        type="radio"
-                        id="status2"
-                        name="status"
-                        value="Нужно сделать"
-                        onChange={handleInputChange}
-                      />
-                      <p>Нужно сделать</p>
-                    </label>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status2"
+                      name="status"
+                      value="Нужно сделать"
+                      onChange={handleInputChange}
+                    />
+                    <p>Нужно сделать</p>
                   </StatusTheme>
-                  <StatusTheme>
-                    <label>
-                      <EditInput
-                        type="radio"
-                        id="status3"
-                        name="status"
-                        value="В работе"
-                        onChange={handleInputChange}
-                      />
-                      <p>В работе</p>
-                    </label>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status3"
+                      name="status"
+                      value="В работе"
+                      onChange={handleInputChange}
+                    />
+                    <p>В работе</p>
                   </StatusTheme>
-                  <StatusTheme>
-                    <label>
-                      <EditInput
-                        type="radio"
-                        id="status4"
-                        name="status"
-                        value="Тестирование"
-                        onChange={handleInputChange}
-                      />
-                      <p>Тестирование</p>
-                    </label>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status4"
+                      name="status"
+                      value="Тестирование"
+                      onChange={handleInputChange}
+                    />
+                    <p>Тестирование</p>
                   </StatusTheme>
-                  <StatusTheme>
-                    <label>
-                      <EditInput
-                        type="radio"
-                        id="status5"
-                        name="status"
-                        value="Готово"
-                        onChange={handleInputChange}
-                      />
-                      <p>Готово</p>
-                    </label>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status5"
+                      name="status"
+                      value="Готово"
+                      onChange={handleInputChange}
+                    />
+                    <p>Готово</p>
                   </StatusTheme>
                 </StatusThemes>
               )}
@@ -202,22 +194,24 @@ function PopBrowse() {
                       id="textArea1"
                       disabled
                       onChange={handleInputChange}
-                    >
-                    </FormBrowseArea>
+                    ></FormBrowseArea>
                   ) : (
                     <FormBrowseArea
                       value={saveCards.description}
                       name="description"
                       id="textArea2"
                       onChange={handleInputChange}
-                    >
-                    </FormBrowseArea>
+                    ></FormBrowseArea>
                   )}
                 </PopBrowseFormBlock>
               </PopBrowseForm>
               <PopBrowseCalendar>
                 <PopBrowseCalendarTtl>Даты</PopBrowseCalendarTtl>
-                {popEdit ? <Calendar selected={currentCard.date}/> : <Calendar selected={selected} setSelected={setSelected}/>}
+                {popEdit ? (
+                  <Calendar selected={currentCard.date} />
+                ) : (
+                  <Calendar selected={selected} setSelected={setSelected} />
+                )}
               </PopBrowseCalendar>
             </PopBrowseWrap>
             <PopBrowseBtn>
@@ -234,9 +228,7 @@ function PopBrowse() {
                 </BtnGroup>
               ) : (
                 <BtnGroup>
-                  <BtnBor onClick={handleSaveClick}>
-                    Сохранить
-                  </BtnBor>
+                  <BtnBor onClick={handleSaveClick}>Сохранить</BtnBor>
                   <BtnBor
                     onClick={() => {
                       setPopEdit(true);

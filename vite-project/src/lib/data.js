@@ -97,27 +97,27 @@ export const Colomns = [
   {
     id: 1,
     status: "Без статуса",
-    index: 0,
+   
   },
   {
     id: 2,
     status: "Нужно сделать",
-    index: 1,
+    
   },
   {
     id: 3,
     status: "В работе",
-    index: 2,
+  
   },
   {
     id: 4,
     status: "Тестирование",
-    index: 3,
+    
   },
   {
     id: 5,
     status: "Готово",
-    index: 4,
+  
   },
 ];
 

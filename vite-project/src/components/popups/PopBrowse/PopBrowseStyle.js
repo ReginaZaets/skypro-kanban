@@ -107,31 +107,34 @@ export const StatusThemes = styled.div`
   justify-content: flex-start;
 `;
 
-export const StatusTheme = styled.div`
+export const StatusTheme = styled.label`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94a6be;
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
-  background-color: #fff;
+  background-color: ${({ $theme }) => ($theme === "dark" ? "#20202c" : "#fff")};
+  &:hover{
+    background-color: #94a6be;
+    & p{ 
+    color: ${({ $theme }) => $theme === 'dark' ? '#000' : '#fff'};
+
+    }
+  }
   & p {
+    color: #94a6be;
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
-    &:hover {
-      color: #fff;
-    }
-  }
-  &:hover {
-    background-color: #94a6be;
   }
 `;
 
 export const StatusThemeLight = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94a6be;
+  color: ${(props) => props.theme.text};
+  background-color: ${({ $theme }) => $theme === 'dark' ? '#94a6be' : '#fff'};
+  color: ${({ $theme }) => $theme === 'dark' ? '#000' : '#94a6be'};
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;

@@ -6,9 +6,11 @@ import { useCardContext, useUserContext } from "../../contexts/useUser";
 import { DragDropContext } from "react-beautiful-dnd";
 import { editTodos } from "../../Api";
 
+
 function Main({ isLoading, error }) {
   const { cards, setCards } = useCardContext();
   const { user } = useUserContext();
+  
 
   return (
     <S.Main>
@@ -26,12 +28,12 @@ function Main({ isLoading, error }) {
                 }
                 console.log("Source:", source);
                 console.log("Destination:", destination);
+                
 
                 const newCards = [...cards];
 
                 const [removedCard] = newCards.splice(source.index, 1);
                 newCards.splice(destination.index, 0, removedCard);
-                setCards(newCards);
 
                 const newStatus = Colomns.find(
                   (column) => column.id.toString() === destination.droppableId
@@ -40,18 +42,13 @@ function Main({ isLoading, error }) {
                 const newSaveCard = newCards.find(
                   (card) => card._id === removedCard._id
                 );
-                console.log(newSaveCard.status)
-
-                console.log(newStatus)
-                console.log(removedCard._id);
-
-                console.log(cards.find(
-                  (card) => card._id === removedCard._id
-                ));
-
-                console.log(newSaveCard);
-
+                
                 newSaveCard.status = newStatus;
+
+                setCards(newCards);
+
+                console.log(removedCard._id);
+                console.log(removedCard.status);
 
                 // console.log(newCards[source.index]._id);
                 await editTodos({

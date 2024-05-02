@@ -1,4 +1,4 @@
-/* * {
+/* /* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -25,7 +25,7 @@ ul li {
   list-style: none;
 } */
 
-@keyframes card-animation {
+/* @keyframes card-animation {
   0% {
     height: 0;
     opacity: 0;
@@ -34,7 +34,7 @@ ul li {
     height: auto;
     opacity: 1;
   }
-}
+} */
 /* html,
 body {
   width: 100%;
@@ -78,12 +78,12 @@ body {
   color: #FFFFFF;
 } */
 
-/* .pop-user-set:target, */
+/* .pop-user-set:target,
 .pop-exit:target,
 .pop-new-card:target,
 .pop-browse:target {
   display: block;
-}
+} */
 
 /* ._orange {
   background-color: #FFE4C2;
@@ -105,7 +105,7 @@ body {
   color: #FFFFFF;
 } */
 
-._active-category {
+/* ._active-category {
   opacity: 1 !important;
 }
 
@@ -113,7 +113,7 @@ body {
   position: relative;
   top: 0;
   left: 0;
-}
+} */
 
 /* .pop-exit {
   display: none;
@@ -275,7 +275,7 @@ body {
 .pop-user-set button a {
   color: #565EEF;
 } */
-
+/* 
 .pop-new-card {
   display: block;
   width: 100%;
@@ -827,7 +827,7 @@ body {
   display: block;
   position: relative;
 } */
-.cards__item {
+/* .cards__item {
   padding: 5px;
   animation-name: card-animation;
   animation-duration: 500ms;
@@ -906,9 +906,9 @@ body {
   line-height: 13px;
   color: #94A6BE;
   letter-spacing: 0.2px;
-}
+} */
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .main__block {
     width: 100%;
     margin: 0 auto;
@@ -1084,5 +1084,5 @@ body {
   }
   .pop-exit__form-group {
     display: block;
-  }
-}
+  } */
+/* } */ 

@@ -28,7 +28,6 @@ export const Cards = styled.div`
 `;
 
 export const Col = styled.div`
-background-color: red;
 
   
 `

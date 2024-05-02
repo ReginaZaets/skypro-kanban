@@ -17,7 +17,7 @@ function PopNewCard() {
 
   const [selected, setSelected] = useState();
 
-  
+  const [isNewCardsLoading, setIsNewCardsLoading] = useState(false);
 
   const [newCard, setNewCard] = useState({
     title: "",
@@ -42,7 +42,7 @@ function PopNewCard() {
       // showError("Заполни все поля");
       return;
     }
-
+    setIsNewCardsLoading(true);
     const newCardUser = { ...newCard, date: selected };
     postTodos({ ...newCardUser, token: user?.token })
       .then((response) => {
@@ -52,6 +52,9 @@ function PopNewCard() {
       .catch((err) => {
         console.log(err.message);
         setError(err.message);
+      })
+      .finally(() => {
+        setIsNewCardsLoading(false);
       });
   };
 
@@ -64,14 +67,7 @@ function PopNewCard() {
       ...newCard,
       [name]: value,
     });
-    
-
-    
   };
-  // function showError(errorText) {
-  //   return alert(errorText);
-  // }
-  
 
   return (
     <S.PopNewCard id="new-card">
@@ -115,7 +111,7 @@ function PopNewCard() {
             <S.Categories>
               <S.CategoriesP>Категория</S.CategoriesP>
               <S.CategoriesThemes>
-                <S.PopNewCardLabel $theme={theme}  >
+                <S.PopNewCardLabel $theme={theme}>
                   <S.LabelPW
                     type="radio"
                     id="radio1"
@@ -126,7 +122,7 @@ function PopNewCard() {
                   <p>Web Design</p>
                 </S.PopNewCardLabel>
 
-                <S.PopNewCardLabelC $theme={theme} >
+                <S.PopNewCardLabelC $theme={theme}>
                   <S.LabelC
                     type="radio"
                     id="radio2"
@@ -136,7 +132,7 @@ function PopNewCard() {
                   />
                   <p>Research</p>
                 </S.PopNewCardLabelC>
-                <S.PopNewCardLabelR $theme={theme} >
+                <S.PopNewCardLabelR $theme={theme}>
                   <S.LabelR
                     type="radio"
                     id="radio3"
@@ -149,7 +145,11 @@ function PopNewCard() {
               </S.CategoriesThemes>
             </S.Categories>
             {error && <p style={{ color: "red" }}>{error}</p>}
-            <S.FormNewCreate onClick={handleFormSubmit} id="btnCreate">
+            <S.FormNewCreate
+              disabled={isNewCardsLoading}
+              onClick={handleFormSubmit}
+              id="btnCreate"
+            >
               Создать задачу
             </S.FormNewCreate>
           </S.PopNewCardContent>

@@ -11,6 +11,7 @@ import {
 } from "./CardStyle";
 import { ThemeContext } from "../../contexts/themeContext";
 import { useContext } from "react";
+import { format } from "date-fns";
 
 
 function Card({ topic, title, date, _id }) {
@@ -62,7 +63,7 @@ function Card({ topic, title, date, _id }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>{date}</p>
+            <p>{format(date, "dd.MM.yyyy")}</p>
           </CardDate>
         </CardContent>
       </CardsCard>
