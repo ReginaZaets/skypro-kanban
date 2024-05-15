@@ -1,28 +1,78 @@
-import { statusList } from "../../lib/data";
+import { Colomns } from "../../lib/data";
 import Column from "../Column/Column";
 import * as S from "./MainStyled";
 import { Container } from "../../styles/shared";
-import { useCardContext } from "../../contexts/useUser";
+import { useCardContext, useUserContext } from "../../contexts/useUser";
+import { DragDropContext } from "react-beautiful-dnd";
+import { editTodos } from "../../Api";
+
 
 function Main({ isLoading, error }) {
-  const {cards} = useCardContext();
+  const { cards, setCards } = useCardContext();
+  const { user } = useUserContext();
+  
 
   return (
     <S.Main>
       <Container>
         <S.MainBlock>
           {isLoading ? (
-            <S.MailContent>
-              {statusList.map((status, index) => {
-                return (
-                  <Column
-                    key={index}
-                    status={status}
-                    cardList={cards.filter((card) => card.status === status)}
-                  />
+            <DragDropContext
+              onDragEnd={async ({ source, destination }) => {
+                if (!destination) return;
+                if (
+                  source.droppableId === destination.droppableId &&
+                  source.index === destination.index
+                ) {
+                  return;
+                }
+                console.log("Source:", source);
+                console.log("Destination:", destination);
+                
+
+                const newCards = [...cards];
+
+                const [removedCard] = newCards.splice(source.index, 1);
+                newCards.splice(destination.index, 0, removedCard);
+
+                const newStatus = Colomns.find(
+                  (column) => column.id.toString() === destination.droppableId
+                ).status;
+
+                const newSaveCard = newCards.find(
+                  (card) => card._id === removedCard._id
                 );
-              })}
-            </S.MailContent>
+                
+                newSaveCard.status = newStatus;
+
+                setCards(newCards);
+
+                console.log(removedCard._id);
+                console.log(removedCard.status);
+
+                // console.log(newCards[source.index]._id);
+                await editTodos({
+                  _id: newSaveCard._id,
+                  token: user.token,
+                  newSaveCard,
+                });
+              }}
+            >
+              <S.MailContent>
+                {Colomns.map((status, index) => {
+                  return (
+                    <Column
+                      key={index}
+                      index={index}
+                      status={status.status}
+                      cardList={cards.filter(
+                        (card) => card.status === status.status
+                      )}
+                    />
+                  );
+                })}
+              </S.MailContent>
+            </DragDropContext>
           ) : (
             "Загрузка..."
           )}

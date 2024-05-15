@@ -72,3 +72,33 @@ export async function postTodos({title, topic, description, date, token}) {
   const data = await response.json();
   return data;
 }
+
+export async function deleteTodos ({_id,token}) {
+  console.log(_id)
+  const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${_id}`, {
+    method: "DELETE", 
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }, 
+  })
+  if (!response.ok) {
+    throw new Error("Ошибка удаления задачи");
+  }
+  const data = await response.json();
+  return data;
+}
+
+export async function editTodos ({_id,token, newSaveCard}) {
+  const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${_id}`, {
+    method: "PUT", 
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }, 
+    body: JSON.stringify(newSaveCard)
+  })
+  if (!response.ok) {
+    throw new Error("Ошибка сохранения задачи");
+  }
+  const data = await response.json();
+  return data;
+}

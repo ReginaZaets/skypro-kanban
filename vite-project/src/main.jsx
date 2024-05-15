@@ -5,15 +5,18 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/user.jsx";
 import { CardProvider } from "./contexts/card.jsx";
+import { ThemeProvider } from "./contexts/themeContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-    <CardProvider>
-    <UserProvider>
-      <App />
-    </UserProvider>
-    </CardProvider>
+      <ThemeProvider>
+        <CardProvider>
+          <UserProvider>
+            <App />
+          </UserProvider>
+        </CardProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

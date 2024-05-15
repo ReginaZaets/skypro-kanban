@@ -1,18 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import Calendar from "../../Calendar/Calendar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { postTodos } from "../../../Api";
 import { useUserContext, useCardContext } from "../../../contexts/useUser";
 import * as S from "../PopNewCard/PopNewcardStyle";
 import { paths } from "../../../lib/data";
 import { PopBrowseCalendar, Subttl } from "../PopBrowse/PopBrowseStyle";
+import { ThemeContext } from "../../../contexts/themeContext";
 
 function PopNewCard() {
+  const { theme } = useContext(ThemeContext);
+
   const { setCards } = useCardContext();
 
   const [error, setError] = useState(null);
 
   const [selected, setSelected] = useState();
+
+  const [isNewCardsLoading, setIsNewCardsLoading] = useState(false);
 
   const [newCard, setNewCard] = useState({
     title: "",
@@ -37,7 +42,7 @@ function PopNewCard() {
       // showError("Заполни все поля");
       return;
     }
-
+    setIsNewCardsLoading(true);
     const newCardUser = { ...newCard, date: selected };
     postTodos({ ...newCardUser, token: user?.token })
       .then((response) => {
@@ -47,6 +52,9 @@ function PopNewCard() {
       .catch((err) => {
         console.log(err.message);
         setError(err.message);
+      })
+      .finally(() => {
+        setIsNewCardsLoading(false);
       });
   };
 
@@ -60,9 +68,6 @@ function PopNewCard() {
       [name]: value,
     });
   };
-  // function showError(errorText) {
-  //   return alert(errorText);
-  // }
 
   return (
     <S.PopNewCard id="new-card">
@@ -106,7 +111,7 @@ function PopNewCard() {
             <S.Categories>
               <S.CategoriesP>Категория</S.CategoriesP>
               <S.CategoriesThemes>
-                <S.PopNewCardLabel>
+                <S.PopNewCardLabel $theme={theme}>
                   <S.LabelPW
                     type="radio"
                     id="radio1"
@@ -117,7 +122,7 @@ function PopNewCard() {
                   <p>Web Design</p>
                 </S.PopNewCardLabel>
 
-                <S.PopNewCardLabelC>
+                <S.PopNewCardLabelC $theme={theme}>
                   <S.LabelC
                     type="radio"
                     id="radio2"
@@ -127,7 +132,7 @@ function PopNewCard() {
                   />
                   <p>Research</p>
                 </S.PopNewCardLabelC>
-                <S.PopNewCardLabelR>
+                <S.PopNewCardLabelR $theme={theme}>
                   <S.LabelR
                     type="radio"
                     id="radio3"
@@ -137,19 +142,14 @@ function PopNewCard() {
                   />
                   <p>Copywriting</p>
                 </S.PopNewCardLabelR>
-                {/* <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div> */}
               </S.CategoriesThemes>
             </S.Categories>
             {error && <p style={{ color: "red" }}>{error}</p>}
-            <S.FormNewCreate onClick={handleFormSubmit} id="btnCreate">
+            <S.FormNewCreate
+              disabled={isNewCardsLoading}
+              onClick={handleFormSubmit}
+              id="btnCreate"
+            >
               Создать задачу
             </S.FormNewCreate>
           </S.PopNewCardContent>

@@ -29,7 +29,8 @@ export const PopBrowseContainer = styled.div`
 export const PopBrowseBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   max-width: 750px;
   width: 100%;
   padding: 40px 30px 38px;
@@ -53,7 +54,8 @@ export const PopBrowseTopBlock = styled.div`
 `;
 
 export const PopBrowseTtl = styled.h3`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -70,14 +72,20 @@ export const CategotiesTheme = styled.div`
   opacity: 1;
   display: block;
   opacity: 1 !important;
-  background-color: ${({ $topic }) =>
-    TopicStyles[$topic]?.backgroundColor || "#94A6BE"};
+  background-color: ${({ $topic, $theme }) => {
+    const background = TopicStyles[$topic]?.backgroundColor || "#94A6BE";
+    return $theme === "dark" ? TopicStyles[$topic]?.text : background;
+  }};
   & p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${({ $topic }) => TopicStyles[$topic]?.color || "#FFFFFF"};
+    color: ${({ $topic, $theme }) => {
+      const color = TopicStyles[$topic]?.color || "#FFFFFF";
+
+      return $theme === "dark" ? "#FFFFFF" : color;
+    }};
   }
 `;
 
@@ -85,7 +93,8 @@ export const PopBrowseStatus = styled.div`
   margin-bottom: 11px;
 `;
 export const PopBrowseStatusP = styled.p`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -98,10 +107,34 @@ export const StatusThemes = styled.div`
   justify-content: flex-start;
 `;
 
-export const StatusTheme = styled.div`
+export const StatusTheme = styled.label`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94a6be;
+  padding: 11px 14px 10px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  background-color: ${({ $theme }) => ($theme === "dark" ? "#20202c" : "#fff")};
+  &:hover{
+    background-color: #94a6be;
+    & p{ 
+    color: ${({ $theme }) => $theme === 'dark' ? '#000' : '#fff'};
+
+    }
+  }
+  & p {
+    color: #94a6be;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.14px;
+  }
+`;
+
+export const StatusThemeLight = styled.div`
+  border-radius: 24px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  color: ${(props) => props.theme.text};
+  background-color: ${({ $theme }) => $theme === 'dark' ? '#94a6be' : '#fff'};
+  color: ${({ $theme }) => $theme === 'dark' ? '#000' : '#94a6be'};
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -129,7 +162,8 @@ export const PopBrowseFormBlock = styled.div`
 `;
 
 export const Subttl = styled.label`
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -140,7 +174,8 @@ export const FormBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -171,7 +206,8 @@ export const PopBrowseCalendar = styled.div`
 export const PopBrowseCalendarTtl = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -218,4 +254,22 @@ export const BtnBg = styled.button`
     color: #ffffff;
   }
   ${Hover01}
+`;
+
+export const EditInput = styled.input`
+  display: none;
+`;
+
+export const EditLabel = styled.label`
+  color: #94a6be;
+
+  & p {
+    color: #94a6be;
+
+    &:hover {
+      color: #fff;
+
+      background-color: #94a6be;
+    }
+  }
 `;

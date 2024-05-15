@@ -1,76 +1,76 @@
 export const cardList = [
   {
-    id: 1,
+    _id: 1,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
     status: "Без статуса",
   },
   {
-    id: 2,
+    _id: 2,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
     status: "Без статуса",
   },
   {
-    id: 3,
+    _id: 3,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
     status: "Без статуса",
   },
   {
-    id: 4,
+    _id: 4,
     topic: "Copywriting",
     title: "Название задачи",
     date: "30.10.23",
     status: "Без статуса",
   },
   {
-    id: 5,
+    _id: 5,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
     status: "Без статуса",
   },
   {
-    id: 6,
+    _id: 6,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
     status: "Нужно сделать",
   },
   {
-    id: 7,
+    _id: 7,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
     status: "В работе",
   },
   {
-    id: 8,
+    _id: 8,
     topic: "Copywriting",
     title: "Название задачи",
     date: "30.10.23",
     status: "В работе",
   },
   {
-    id: 9,
+    _id: 9,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
     status: "В работе",
   },
   {
-    id: 10,
+    _id: 10,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
     status: "Тестирование",
   },
   {
-    id: 11,
+    _id: 11,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
@@ -93,6 +93,34 @@ export const statusList = [
   "Готово",
 ];
 
+export const Colomns = [
+  {
+    id: 1,
+    status: "Без статуса",
+   
+  },
+  {
+    id: 2,
+    status: "Нужно сделать",
+    
+  },
+  {
+    id: 3,
+    status: "В работе",
+  
+  },
+  {
+    id: 4,
+    status: "Тестирование",
+    
+  },
+  {
+    id: 5,
+    status: "Готово",
+  
+  },
+];
+
 export const paths = {
   MAIN: "/",
   EXIT: "/exit",
@@ -104,7 +132,7 @@ export const paths = {
 };
 
 export const formFields = {
-    name: "",
-    login: "",
-    password: "",
+  name: "",
+  login: "",
+  password: "",
 };

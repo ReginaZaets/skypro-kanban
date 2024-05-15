@@ -24,7 +24,16 @@ const Register = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
+  const isEmailValid = (email) => {
+    const emailRegex = /^[A-Z0-9._]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
   const handleInputChange = async () => {
+    if (!isEmailValid(login)) {
+      setError("Некорректный email");
+      return;
+    }
     await registerUser({ name:sanitizeHtml(name), login:sanitizeHtml(login), password:sanitizeHtml(password) })
       .then((response) => {
         userReg(response.user);

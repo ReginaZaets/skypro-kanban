@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Calendar from "../../Calendar/Calendar";
 import { useParams } from "react-router-dom";
-import { useCardContext } from "../../../contexts/useUser";
+import { useCardContext, useUserContext } from "../../../contexts/useUser";
 import {
   BtnBg,
   BtnBor,
   BtnGroup,
   CategotiesTheme,
+  EditInput,
   FormBrowseArea,
   PopBrows,
   PopBrowseBlock,
@@ -23,15 +24,89 @@ import {
   PopBrowseTtl,
   PopBrowseWrap,
   StatusTheme,
+  StatusThemeLight,
   StatusThemes,
   Subttl,
 } from "./PopBrowseStyle";
 import { paths } from "../../../lib/data";
+import { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "../../../contexts/themeContext";
+import { deleteTodos, editTodos } from "../../../Api";
 
 function PopBrowse() {
   const { id } = useParams();
-  const { cards } = useCardContext();
+  const { cards, setCards } = useCardContext();
+  const { theme } = useContext(ThemeContext);
+  const { user } = useUserContext();
+  const navigate = useNavigate();
   const currentCard = cards.find((element) => id === element._id);
+
+  const [popEdit, setPopEdit] = useState(false);
+  const [selected, setSelected] = useState();
+  // const [saveCard, setSaveCard] = useState({})
+
+  const [saveCards, setSaveCards] = useState({
+    title: currentCard.title,
+    description: currentCard.description,
+    topic: currentCard.topic,
+    date: currentCard.date,
+    status: currentCard.status,
+  });
+
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода редактирования.
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
+
+    setSaveCards({
+      ...saveCards,
+      [name]: value,
+    });
+  };
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода удаления.
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+
+    deleteTodos({ _id: currentCard._id, token: user.token })
+      .then((response) => {
+        // Обновляем состояние с новыми данными карточек
+        setCards(response.tasks);
+        navigate(paths.MAIN);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  useEffect(() => {
+    setPopEdit(true);
+  }, []);
+
+  //Функция, которая будет срабытывать, когда пользователь будет вводить или стирать, какие то данные в поле ввода сохранения.
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+
+    const { name, value } = e.target; // Извлекаем имя поля и его значение (value)- это value где хранится значение нашего поля ввода.
+
+    setSaveCards({
+      ...saveCards,
+      [name]: value,
+    });
+
+    editTodos({
+      _id: currentCard._id,
+      token: user.token,
+      newSaveCard: saveCards,
+    })
+      .then((response) => {
+        // Обновляем состояние с новыми данными карточек
+        setCards(response.tasks);
+        navigate(paths.MAIN);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   return (
     <PopBrows id="popBrowse">
@@ -40,74 +115,135 @@ function PopBrowse() {
           <PopBrowseContent>
             <PopBrowseTopBlock>
               <PopBrowseTtl>Задача: {currentCard.title}</PopBrowseTtl>
-              <CategotiesTheme $topic={currentCard.topic}>
+              <CategotiesTheme $theme={theme} $topic={currentCard.topic}>
                 <p>{currentCard.topic}</p>
               </CategotiesTheme>
             </PopBrowseTopBlock>
+
             <PopBrowseStatus>
               <PopBrowseStatusP>Статус</PopBrowseStatusP>
-              <StatusThemes>
-                {/* <div className="status__theme _hide">
-										<p>Без статуса</p>
-									</div> */}
-                <StatusTheme>
-                  <p>{currentCard.status}</p>
-                </StatusTheme>
-                {/* <div className="status__theme _hide">
-										<p>В работе</p>
-									</div>
-									<div className="status__theme _hide">
-										<p>Тестирование</p>
-									</div>
-									<div className="status__theme _hide">
-										<p>Готово</p>
-									</div> */}
-              </StatusThemes>
+              {popEdit ? (
+                <StatusThemes>
+                  <StatusThemeLight $theme={theme}>
+                    <p>{currentCard.status}</p>
+                  </StatusThemeLight>
+                </StatusThemes>
+              ) : (
+                <StatusThemes>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status1"
+                      name="status"
+                      value="Без статуса"
+                      onChange={handleInputChange}
+                    />
+                    <p>Без статуса</p>
+                  </StatusTheme>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status2"
+                      name="status"
+                      value="Нужно сделать"
+                      onChange={handleInputChange}
+                    />
+                    <p>Нужно сделать</p>
+                  </StatusTheme>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status3"
+                      name="status"
+                      value="В работе"
+                      onChange={handleInputChange}
+                    />
+                    <p>В работе</p>
+                  </StatusTheme>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status4"
+                      name="status"
+                      value="Тестирование"
+                      onChange={handleInputChange}
+                    />
+                    <p>Тестирование</p>
+                  </StatusTheme>
+                  <StatusTheme $theme={theme}>
+                    <EditInput
+                      type="radio"
+                      id="status5"
+                      name="status"
+                      value="Готово"
+                      onChange={handleInputChange}
+                    />
+                    <p>Готово</p>
+                  </StatusTheme>
+                </StatusThemes>
+              )}
             </PopBrowseStatus>
             <PopBrowseWrap>
               <PopBrowseForm id="formBrowseCard" action="#">
                 <PopBrowseFormBlock>
                   <Subttl htmlFor="textArea01">Описание задачи</Subttl>
-                  <FormBrowseArea
-                    name="text"
-                    id="textArea01"
-                    readOnly
-                    placeholder="Введите описание задачи..."
-                  ></FormBrowseArea>
+                  {popEdit ? (
+                    <FormBrowseArea
+                      value={currentCard.description}
+                      name="description"
+                      id="textArea1"
+                      disabled
+                      onChange={handleInputChange}
+                    ></FormBrowseArea>
+                  ) : (
+                    <FormBrowseArea
+                      value={saveCards.description}
+                      name="description"
+                      id="textArea2"
+                      onChange={handleInputChange}
+                    ></FormBrowseArea>
+                  )}
                 </PopBrowseFormBlock>
               </PopBrowseForm>
               <PopBrowseCalendar>
                 <PopBrowseCalendarTtl>Даты</PopBrowseCalendarTtl>
-                <Calendar/>
+                {popEdit ? (
+                  <Calendar selected={currentCard.date} />
+                ) : (
+                  <Calendar selected={selected} setSelected={setSelected} />
+                )}
               </PopBrowseCalendar>
             </PopBrowseWrap>
-            {/* <div className="theme-down__categories theme-down">
-								<p className="categories__p subttl">Категория</p>
-								<div className="categories__theme _orange _active-category">
-									<p className="_orange">Web Design</p>
-								</div>
-							</div> */}
             <PopBrowseBtn>
-              <BtnGroup>
-                <BtnBor>
-                  <Link>Редактировать задачу</Link>
-                </BtnBor>
-                <BtnBor>
-                  <Link>Удалить задачу</Link>
-                </BtnBor>
-              </BtnGroup>
+              {popEdit ? (
+                <BtnGroup>
+                  <BtnBor
+                    onClick={() => {
+                      setPopEdit(false);
+                    }}
+                  >
+                    Редактировать задачу
+                  </BtnBor>
+                  <BtnBor onClick={handleDeleteClick}>Удалить задачу</BtnBor>
+                </BtnGroup>
+              ) : (
+                <BtnGroup>
+                  <BtnBor onClick={handleSaveClick}>Сохранить</BtnBor>
+                  <BtnBor
+                    onClick={() => {
+                      setPopEdit(true);
+                    }}
+                  >
+                    Отменить
+                  </BtnBor>
+                  <BtnBor onClick={handleDeleteClick}>Удалить задачу</BtnBor>
+                </BtnGroup>
+              )}
+
               <BtnBg>
                 <Link to={paths.MAIN}>Закрыть</Link>
               </BtnBg>
             </PopBrowseBtn>
-            {/* <div className="pop-browse__btn-edit _hide">
-								<div className="btn-group">
-									<BtnBg><a href="#">Сохранить</a></BtnBg>
-									<BtnBo"><a href="#">Отменить</a></BtnBo>
-									<BtnBo" id="btnDelete"><a href="#">Удалить задачу</a></BtnBo>
-								</div>
-								<BtnBg><Link to={paths.MAIN}>Закрыть</Link></BtnBg>
-							</div> */}
           </PopBrowseContent>
         </PopBrowseBlock>
       </PopBrowseContainer>

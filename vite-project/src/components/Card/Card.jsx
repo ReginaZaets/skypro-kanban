@@ -9,23 +9,27 @@ import {
   CardDate,
   CardBtn,
 } from "./CardStyle";
+import { ThemeContext } from "../../contexts/themeContext";
+import { useContext } from "react";
+import { format } from "date-fns";
 
 
 function Card({ topic, title, date, _id }) {
-  
+  const { theme } = useContext(ThemeContext);
+
   return (
     <CardItem>
       <CardsCard>
         <CardGroup>
-          <CardTheme $topic={topic}>
+          <CardTheme $theme={theme} $topic={topic}>
             <p>{topic}</p>
           </CardTheme>
           <Link to={`card/${_id}`}>
-          <CardBtn>
-            <div></div>
-            <div></div>
-            <div></div>
-          </CardBtn>
+            <CardBtn>
+              <div></div>
+              <div></div>
+              <div></div>
+            </CardBtn>
           </Link>
         </CardGroup>
         <CardContent>
@@ -59,7 +63,7 @@ function Card({ topic, title, date, _id }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>{date}</p>
+            <p>{format(date, "dd.MM.yyyy")}</p>
           </CardDate>
         </CardContent>
       </CardsCard>

@@ -5,7 +5,8 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
 export default function Calendar({selected, setSelected}) {
-  
+  //нельзя выбрать вчерашние даты
+  const today = new Date();
 
   let footer = <p>Выберите срок исполнения</p>;
   if (selected) {
@@ -17,6 +18,7 @@ export default function Calendar({selected, setSelected}) {
       selected={selected}
       onSelect={setSelected}
       footer={footer}
+      fromDate={today}
     />
   );
 }
